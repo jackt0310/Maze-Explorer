@@ -21,7 +21,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject minimap;
 
     public bool hasKey = false;
-    
+
+    public AudioSource fanfare;
+    public AudioSource fall;
+    public AudioSource pain;
+
     void Start()
     {
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
@@ -85,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
             rb.detectCollisions = false;
             
             minimap.SetActive(false);
+            fall.Play();
+            pain.Play();
             GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = Instantiate(fallenKnight, transform.position, transform.rotation);
             Destroy(gameObject);
 
@@ -101,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.collider.transform.parent.gameObject);
             hasKey = true;
+            fanfare.Play();
         }
     }
 }
