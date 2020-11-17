@@ -99,23 +99,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
-            if (walk.isPlaying)
-            {
-                walk.Pause();
-            }
-            rb.detectCollisions = false;
-            
-            minimap.SetActive(false);
-            fall.Play();
-            pain.Play();
-            GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = Instantiate(fallenKnight, transform.position, transform.rotation);
-            isDead = true;
-            Destroy(gameObject);
+            Die();
         }
         if(hasKey)
         {
             Destroy(door);
         }
+    }
+
+    void Die()
+    {
+        if (walk.isPlaying)
+        {
+            walk.Pause();
+        }
+        rb.detectCollisions = false;
+
+        minimap.SetActive(false);
+        fall.Play();
+        pain.Play();
+        GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = Instantiate(fallenKnight, transform.position, transform.rotation);
+        isDead = true;
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -125,6 +130,10 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.collider.transform.parent.gameObject);
             hasKey = true;
             fanfare.Play();
+        }
+        if (collision.collider.tag == "bozu")
+        {
+            Die();
         }
     }
 }
