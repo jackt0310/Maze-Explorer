@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource fall;
     public AudioSource pain;
     public AudioSource walk;
+    
+    public bool isDead = false;
 
     void Start()
     {
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         float cameraRotY = GameObject.Find("/Main Camera").transform.localRotation.eulerAngles.y;
 
         Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
-        Debug.Log(walk.isPlaying);
+
         if (moveSpeed > 0)
         {
             animator.SetBool("isWalking", true);
@@ -103,8 +105,8 @@ public class PlayerMovement : MonoBehaviour
             fall.Play();
             pain.Play();
             GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = Instantiate(fallenKnight, transform.position, transform.rotation);
+            isDead = true;
             Destroy(gameObject);
-
         }
         if(hasKey)
         {
