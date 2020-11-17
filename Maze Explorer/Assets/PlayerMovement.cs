@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             rb.MoveRotation(Quaternion.LookRotation(movement));
         }
 
+        //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
         rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
 
     }
