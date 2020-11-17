@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
 
     public GameObject door;
+    public GameObject fallenKnight;
+    public GameObject minimap;
 
     public bool hasKey = false;
     
@@ -78,6 +80,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            rb.detectCollisions = false;
+            
+            minimap.SetActive(false);
+            GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = Instantiate(fallenKnight, transform.position, transform.rotation);
+            Destroy(gameObject);
+
+        }
         if(hasKey)
         {
             Destroy(door);
