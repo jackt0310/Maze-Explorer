@@ -99,6 +99,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
+            if (walk.isPlaying)
+            {
+                walk.Pause();
+            }
             rb.detectCollisions = false;
             
             minimap.SetActive(false);
