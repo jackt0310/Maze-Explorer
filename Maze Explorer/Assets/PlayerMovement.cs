@@ -19,18 +19,14 @@ public class PlayerMovement : MonoBehaviour
     public GameObject door;
 
     public bool hasKey = false;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-
+    
     void Start()
     {
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         door = GameObject.Find("/Door");
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -68,7 +64,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveSpeed > 0)
         {
+            animator.SetBool("isWalking", true);
             rb.MoveRotation(Quaternion.LookRotation(movement));
+        } else
+        {
+            animator.SetBool("isWalking", false);
         }
 
         //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
