@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     public int jumps = 1;
     public float jumpForce = 10f;
 
+    public GameObject door;
+
+    public bool hasKey = false;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
+        door = GameObject.Find("/Door");
     }
 
     private void FixedUpdate()
@@ -72,6 +77,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(hasKey)
+        {
+            Destroy(door);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.name == "mazekey")
+        {
+            Destroy(collision.collider.transform.parent.gameObject);
+            hasKey = true;
+        }
     }
 }
