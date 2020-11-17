@@ -38,15 +38,17 @@ public class PlayerMovement : MonoBehaviour
 
     public bool[] unlockedMusic;
     public AudioSource[] musicAudio;
-
+    public DemonScript demon;
     public string[] musicTitle;
 
     int currentSong = 0;
     public Text musicText;
     public Text musicInfoText;
+    float musicTextDisableTime = 0f;
 
     void Start()
     {
+        demon = GameObject.Find("/demon").GetComponent<DemonScript>();
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -82,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         };
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
-        Invoke("MusicTextDone", 3f);
+        musicTextDisableTime = 3f;
 
         musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
         musicInfoText.enabled = false;
@@ -110,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
                         musicAudio[currentSong].Play();
                         musicText.text = "Now playing: " + musicTitle[currentSong];
                         musicText.enabled = true;
-                        Invoke("MusicTextDone", 3f);
+                        musicTextDisableTime = 3f;
                     }
                 }
                 nextSong++;
@@ -123,14 +125,18 @@ public class PlayerMovement : MonoBehaviour
             musicText.text = "Now playing: " + musicTitle[currentSong];
             musicText.enabled = true;
             musicInfoText.enabled = true;
-            Invoke("MusicTextDone", 3f);
+            musicTextDisableTime = 3f;
         }
     }
 
     void MusicTextDone()
     {
-        musicText.enabled = false;
-        musicInfoText.enabled = false;
+        if(musicTextDisableTime <= 0f)
+        {
+            musicText.enabled = false;
+            musicInfoText.enabled = false;
+        }
+       
     }
 
     private void FixedUpdate()
@@ -190,6 +196,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(musicTextDisableTime > 0f)
+        {
+            musicTextDisableTime -= Time.deltaTime;
+        } else
+        {
+            MusicTextDone();
+        }
         if(Input.GetKeyDown(KeyCode.G))
         {
             Die();
@@ -237,6 +250,22 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.collider.gameObject);
             changeSong(unlockNext());
+        }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "demonZone")
+        {
+            demon.pursuit = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "demonZone")
+        {
+            demon.pursuit = false;
         }
     }
 
