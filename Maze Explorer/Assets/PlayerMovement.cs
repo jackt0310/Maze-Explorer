@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,8 +27,23 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource fall;
     public AudioSource pain;
     public AudioSource walk;
-    
+    public AudioSource music_0;
+    public AudioSource music_1;
+    public AudioSource music_2;
+    public AudioSource music_3;
+    public AudioSource music_4;
+    public AudioSource music_5;
+
     public bool isDead = false;
+
+    public bool[] unlockedMusic;
+    public AudioSource[] musicAudio;
+
+    public string[] musicTitle;
+
+    int currentSong = 0;
+    public Text musicText;
+    public Text musicInfoText;
 
     void Start()
     {
@@ -38,6 +54,83 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         walk.Play();
         walk.Pause();
+        unlockedMusic = new bool[] {
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+        musicAudio = new AudioSource[] {
+            music_0,
+            music_1,
+            music_2,
+            music_3,
+            music_4,
+            music_5
+        };
+
+        musicTitle = new string[]
+        {
+            "Dungeons and Dragons - Alexander Nakarada",
+            "Thine ankles shan’t lie - Shakira",
+            "Farewell farewell farewell - NSYNC",
+            "Thine Watermelon Sugar - Harry Styles",
+            "QUITE UNPLEASANT! - XXXTentacion",
+            "Bringeth Holy Back - Justin Timberlake"
+        };
+        musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
+        musicText.text = "Now playing: " + musicTitle[currentSong];
+        Invoke("MusicTextDone", 3f);
+
+        musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
+        musicInfoText.enabled = false;
+    }
+
+    void changeSong(int song)
+    {
+        if (song == -1)
+        {
+            int nextSong = currentSong + 1;
+            bool done = false;
+            while (!done)
+            {
+                if (nextSong >= unlockedMusic.Length)
+                {
+                    nextSong = 0;
+                }
+                if (unlockedMusic[nextSong])
+                {
+                    done = true;
+                    if (nextSong != currentSong)
+                    {
+                        musicAudio[currentSong].Stop();
+                        currentSong = nextSong;
+                        musicAudio[currentSong].Play();
+                        musicText.text = "Now playing: " + musicTitle[currentSong];
+                        musicText.enabled = true;
+                        Invoke("MusicTextDone", 3f);
+                    }
+                }
+                nextSong++;
+            }
+        } else
+        {
+            musicAudio[currentSong].Stop();
+            currentSong = song;
+            musicAudio[currentSong].Play();
+            musicText.text = "Now playing: " + musicTitle[currentSong];
+            musicText.enabled = true;
+            musicInfoText.enabled = true;
+            Invoke("MusicTextDone", 3f);
+        }
+    }
+
+    void MusicTextDone()
+    {
+        musicText.enabled = false;
+        musicInfoText.enabled = false;
     }
 
     private void FixedUpdate()
@@ -105,6 +198,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(door);
         }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            changeSong(-1);
+        }
     }
 
     void Die()
@@ -135,5 +233,31 @@ public class PlayerMovement : MonoBehaviour
         {
             Die();
         }
+        if (collision.collider.tag == "note")
+        {
+            Destroy(collision.collider.gameObject);
+            changeSong(unlockNext());
+        }
+    }
+
+    int unlockNext()
+    {
+        int song = Random.Range(1, unlockedMusic.Length);
+        if (!unlockedMusic[song])
+        {
+            unlockedMusic[song] = true;
+            return song;
+        }
+        song = 0;
+        while (song < unlockedMusic.Length)
+        {
+            if (!unlockedMusic[song])
+            {
+                unlockedMusic[song] = true;
+                return song;
+            }
+            song++;
+        }
+        return -1;
     }
 }
