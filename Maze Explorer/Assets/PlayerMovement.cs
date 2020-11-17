@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource fanfare;
     public AudioSource fall;
     public AudioSource pain;
+    public AudioSource walk;
 
     void Start()
     {
@@ -33,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         door = GameObject.Find("/Door");
         animator = GetComponent<Animator>();
+        walk.Play();
+        walk.Pause();
     }
 
     private void FixedUpdate()
@@ -67,13 +70,21 @@ public class PlayerMovement : MonoBehaviour
         float cameraRotY = GameObject.Find("/Main Camera").transform.localRotation.eulerAngles.y;
 
         Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
-
+        Debug.Log(walk.isPlaying);
         if (moveSpeed > 0)
         {
             animator.SetBool("isWalking", true);
+            if(!walk.isPlaying)
+            {
+                walk.UnPause();
+            }
             rb.MoveRotation(Quaternion.LookRotation(movement));
         } else
         {
+            if(walk.isPlaying)
+            {
+                walk.Pause();
+            }
             animator.SetBool("isWalking", false);
         }
 
