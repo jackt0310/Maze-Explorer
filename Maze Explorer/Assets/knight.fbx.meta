@@ -14,12 +14,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Armour_Cloth_Battered
-    second: {fileID: 2100000, guid: f75bc1d45a5ccca4abc9215d42c0c621, type: 2}
+    second: {fileID: 2100000, guid: 283b51569c18ace4ca912f4e5515442e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Armour_Metal_Battered
-    second: {fileID: 2100000, guid: faf13e6c190291740ae240315ee3948e, type: 2}
+    second: {fileID: 2100000, guid: 283b51569c18ace4ca912f4e5515442e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
