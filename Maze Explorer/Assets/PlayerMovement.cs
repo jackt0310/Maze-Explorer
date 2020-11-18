@@ -33,6 +33,17 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource music_3;
     public AudioSource music_4;
     public AudioSource music_5;
+    public AudioSource music_6;
+    public AudioSource music_7;
+    public AudioSource music_8;
+    public AudioSource music_9;
+    public AudioSource music_10;
+    public AudioSource music_11;
+    public AudioSource music_12;
+    public AudioSource music_13;
+    public AudioSource music_14;
+    public AudioSource music_15;
+    public AudioSource music_16;
 
     public bool isDead = false;
 
@@ -62,6 +73,17 @@ public class PlayerMovement : MonoBehaviour
             false,
             false,
             false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
             false
         };
         musicAudio = new AudioSource[] {
@@ -70,7 +92,18 @@ public class PlayerMovement : MonoBehaviour
             music_2,
             music_3,
             music_4,
-            music_5
+            music_5,
+            music_6,
+            music_7,
+            music_8,
+            music_9,
+            music_10,
+            music_11,
+            music_12,
+            music_13,
+            music_14,
+            music_15,
+            music_16
         };
 
         musicTitle = new string[]
@@ -80,7 +113,18 @@ public class PlayerMovement : MonoBehaviour
             "Farewell farewell farewell - NSYNC",
             "Thine Watermelon Sugar - Harry Styles",
             "QUITE UNPLEASANT! - XXXTentacion",
-            "Bringeth Holy Back - Justin Timberlake"
+            "Bringeth Holy Back - Justin Timberlake",
+            "Buskin Boots - Foster the People",
+            "Ievan Polka",
+            "Thou Art Somebody Whom I Used to Know - Gotye",
+            "Stench of Youthful Soul - Nirvana",
+            "Tis No Sunshine - Bill Withers",
+            "Wheat and Potatoes (WAP) - Cardi B feat Megan Thee Stallion",
+            "Thine Affection Towards California - 2Pac feat Dr. Dre and Roger Troutman",
+            "Absurd Occurrences - Kyle Dixon & Michael Stein",
+            "Bury Thine Friend - Billie Eilish",
+            "Bound II - Kanye West",
+            "Where Art Thine Kingdom - DMX"
         };
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
