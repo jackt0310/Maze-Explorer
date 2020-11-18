@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
         switchTrackTime = musicAudio[currentSong].clip.length;
-        musicTextDisableTime = 3f;
+        musicTextDisableTime = 7f;
 
         musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
         musicInfoText.enabled = false;
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
                         switchTrackTime = musicAudio[currentSong].clip.length;
                         musicText.text = "Now playing: " + musicTitle[currentSong];
                         musicText.enabled = true;
-                        musicTextDisableTime = 3f;
+                        musicTextDisableTime = 7f;
                     }
                 }
                 nextSong++;
@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
             musicText.text = "Now playing: " + musicTitle[currentSong];
             musicText.enabled = true;
             musicInfoText.enabled = true;
-            musicTextDisableTime = 3f;
+            musicTextDisableTime = 7f;
         }
     }
     void PlayNextTrack()
