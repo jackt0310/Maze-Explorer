@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     public Text musicText;
     public Text musicInfoText;
     float musicTextDisableTime = 0f;
+    float switchTrackTime = 100000f;
 
     public GameObject sword;
     public bool attacking = false;
@@ -152,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
         };
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
+        switchTrackTime = musicAudio[currentSong].clip.length;
         musicTextDisableTime = 3f;
 
         musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
@@ -178,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
                         musicAudio[currentSong].Stop();
                         currentSong = nextSong;
                         musicAudio[currentSong].Play();
-                        Invoke("PlayNextTrack", musicAudio[currentSong].clip.length);
+                        switchTrackTime = musicAudio[currentSong].clip.length;
                         musicText.text = "Now playing: " + musicTitle[currentSong];
                         musicText.enabled = true;
                         musicTextDisableTime = 3f;
@@ -195,8 +197,7 @@ public class PlayerMovement : MonoBehaviour
             musicAudio[currentSong].Stop();
             currentSong = song;
             musicAudio[currentSong].Play();
-            
-            Invoke("PlayNextTrack", musicAudio[currentSong].clip.length);
+            switchTrackTime = musicAudio[currentSong].clip.length;
             musicText.text = "Now playing: " + musicTitle[currentSong];
             musicText.enabled = true;
             musicInfoText.enabled = true;
@@ -309,7 +310,17 @@ public class PlayerMovement : MonoBehaviour
         {
             MusicTextDone();
         }
-        if(Input.GetKeyDown(KeyCode.G))
+
+        if (switchTrackTime> 0f)
+        {
+            switchTrackTime -= Time.deltaTime;
+        }
+        else
+        {
+            PlayNextTrack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Die();
         }
