@@ -61,11 +61,15 @@ public class PlayerMovement : MonoBehaviour
     int currentSong = 0;
     public Text musicText;
     public Text musicInfoText;
+    public Text hymnsUnlockedText;
+
     float musicTextDisableTime = 0f;
     float switchTrackTime = 100000f;
 
     public GameObject sword;
     public bool attacking = false;
+    public bool unlockedAll = false;
+    int songsUnlocked = 1;
 
     void Start()
     {
@@ -158,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
 
         musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
         musicInfoText.enabled = false;
+
+        hymnsUnlockedText = GameObject.Find("/Canvas/HymnsUnlockedText").GetComponent<Text>();
     }
 
     void changeSong(int song)
@@ -215,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
         {
             musicText.enabled = false;
             musicInfoText.enabled = false;
+            hymnsUnlockedText.enabled = false;
         }
        
     }
@@ -367,6 +374,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.collider.gameObject);
             changeSong(unlockNext());
+            checkIfDoneMusic();
         }
         
     }
@@ -386,12 +394,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void checkIfDoneMusic()
+    {
+        if(songsUnlocked >= unlockedMusic.Length)
+        {
+            hymnsUnlockedText.enabled = true;
+            var clones = GameObject.FindGameObjectsWithTag("note");
+            foreach (var clone in clones)
+            {
+                Destroy(clone);
+            }
+            unlockedAll = true;
+        }
+        
+    }
+
     int unlockNext()
     {
         int song = Random.Range(1, unlockedMusic.Length);
         if (!unlockedMusic[song])
         {
             unlockedMusic[song] = true;
+            songsUnlocked++;
             return song;
         }
         song = 0;
@@ -400,6 +424,7 @@ public class PlayerMovement : MonoBehaviour
             if (!unlockedMusic[song])
             {
                 unlockedMusic[song] = true;
+                songsUnlocked++;
                 return song;
             }
             song++;

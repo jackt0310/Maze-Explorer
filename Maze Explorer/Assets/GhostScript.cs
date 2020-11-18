@@ -11,6 +11,7 @@ public class GhostScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("/knight");
         //rb = GetComponent<Rigidbody>();
     }
 
