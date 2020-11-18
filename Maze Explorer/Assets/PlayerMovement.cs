@@ -178,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
                         musicAudio[currentSong].Stop();
                         currentSong = nextSong;
                         musicAudio[currentSong].Play();
+                        Invoke("PlayNextTrack", musicAudio[currentSong].clip.length);
                         musicText.text = "Now playing: " + musicTitle[currentSong];
                         musicText.enabled = true;
                         musicTextDisableTime = 3f;
@@ -187,14 +188,25 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
+            /* FIX THIS - Plays next song even if not unlocked */
+            if(song >= unlockedMusic.Length)
+            {
+                song = 0;
+            }
             musicAudio[currentSong].Stop();
             currentSong = song;
             musicAudio[currentSong].Play();
+            
+            Invoke("PlayNextTrack", musicAudio[currentSong].clip.length);
             musicText.text = "Now playing: " + musicTitle[currentSong];
             musicText.enabled = true;
             musicInfoText.enabled = true;
             musicTextDisableTime = 3f;
         }
+    }
+    void PlayNextTrack()
+    {
+        changeSong(currentSong + 1);
     }
 
     void MusicTextDone()

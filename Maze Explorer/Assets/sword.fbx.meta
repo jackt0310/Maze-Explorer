@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: 4259541590054348565
     second: Artorias_Sword|Artorias_SwordAction
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 2a1ee9296ab47074e8f2c58ad204ac32, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
