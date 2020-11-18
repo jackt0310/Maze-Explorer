@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     float switchTrackTime = 100000f;
 
     public GameObject sword;
+    public AudioSource swordNoise;
     public bool attacking = false;
     public bool unlockedAll = false;
     int songsUnlocked = 1;
@@ -304,6 +305,7 @@ public class PlayerMovement : MonoBehaviour
                 sword.GetComponent<Animator>().SetTrigger("Attack");
                 animator.SetTrigger("Attack");
                 swordHit.enabled = true;
+                swordNoise.Play();
                 Invoke("SwordDone", 0.6f);
                 attacking = true;
             }

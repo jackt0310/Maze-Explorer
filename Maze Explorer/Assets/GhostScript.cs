@@ -7,12 +7,14 @@ public class GhostScript : MonoBehaviour
     public GameObject player;
     Rigidbody rb;
     public float moveSpeed = 5f;
+    public AudioSource ghostDeath;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("/knight");
         //rb = GetComponent<Rigidbody>();
+        ghostDeath = GameObject.Find("Main Camera/GhostDeath").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class GhostScript : MonoBehaviour
     {
         if(other.tag == "attack")
         {
+            ghostDeath.Play();
             Destroy(gameObject);
         }
     }
