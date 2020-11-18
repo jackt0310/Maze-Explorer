@@ -855,7 +855,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: All hymns unlocked!
+  m_Text: All hymns collected!
 --- !u!222 &506159622
 CanvasRenderer:
   m_ObjectHideFlags: 0
