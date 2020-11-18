@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
     public bool unlockedAll = false;
     int songsUnlocked = 1;
 
+    public bool rolling = false;
+
     void Start()
     {
         demon = GameObject.Find("/demon").GetComponent<DemonScript>();
@@ -240,29 +242,51 @@ public class PlayerMovement : MonoBehaviour
             float moveSpeed = 0;
             float forwardAmt = 1.0f;
             float moveVertical = 0.0f;
-            if (Input.GetKey(KeyCode.W))
-            {
-                moveSpeed = runSpeed;
-                moveVertical = 1.0f;
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                moveSpeed = runSpeed;
-                moveVertical = -1.0f;
-            }
-
             float moveHorizontal = 0.0f;
-            if (Input.GetKey(KeyCode.D))
+            if (!rolling)
             {
-                moveSpeed = runSpeed;
-                moveHorizontal = 1.0f;
-            }
+                if (Input.GetKey(KeyCode.W))
+                {
+                    moveSpeed = runSpeed;
+                    moveVertical = 1.0f;
+                }
 
-            if (Input.GetKey(KeyCode.A))
+                if (Input.GetKey(KeyCode.S))
+                {
+                    moveSpeed = runSpeed;
+                    moveVertical = -1.0f;
+                }
+
+               
+                if (Input.GetKey(KeyCode.D))
+                {
+                    moveSpeed = runSpeed;
+                    moveHorizontal = 1.0f;
+                }
+
+                if (Input.GetKey(KeyCode.A))
+                {
+                    moveSpeed = runSpeed;
+                    moveHorizontal = -1.0f;
+                }
+            } else
             {
-                moveSpeed = runSpeed;
-                moveHorizontal = -1.0f;
+                moveSpeed = runSpeed * 2.5f;
+                moveVertical = 1.0f;
+
+            }
+            
+            
+            if(Input.GetKey(KeyCode.E))
+            {
+                if (!rolling)
+                {
+                    Invoke("RollForce", .2f);
+                    
+                    animator.SetTrigger("Roll");
+                    rolling = true;
+                    Invoke("StopRolling", 1.2f);
+                }
             }
 
 
@@ -270,6 +294,10 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
 
+            if(rolling)
+            {
+                movement = transform.forward;
+            }
             if (moveSpeed > 0)
             {
                 animator.SetBool("isWalking", true);
@@ -293,6 +321,15 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
+    }
+
+    void RollForce()
+    {
+        //rb.AddForce(transform.forward * 1000f);
+    }
+    void StopRolling()
+    {
+        rolling = false;
     }
     // Update is called once per frame
     void Update()
