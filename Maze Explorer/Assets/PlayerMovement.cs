@@ -44,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource music_14;
     public AudioSource music_15;
     public AudioSource music_16;
+    public AudioSource music_17;
+    public AudioSource music_18;
+    public AudioSource music_19;
+    public AudioSource music_20;
+    public AudioSource music_21;
+    public BoxCollider swordHit;
 
     public bool isDead = false;
 
@@ -57,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     public Text musicInfoText;
     float musicTextDisableTime = 0f;
 
+    public GameObject sword;
+    public bool attacking = false;
+
     void Start()
     {
         demon = GameObject.Find("/demon").GetComponent<DemonScript>();
@@ -69,6 +78,11 @@ public class PlayerMovement : MonoBehaviour
         walk.Pause();
         unlockedMusic = new bool[] {
             true,
+            false,
+            false,
+            false,
+            false,
+            false,
             false,
             false,
             false,
@@ -103,7 +117,12 @@ public class PlayerMovement : MonoBehaviour
             music_13,
             music_14,
             music_15,
-            music_16
+            music_16,
+            music_17,
+            music_18,
+            music_19,
+            music_20,
+            music_21
         };
 
         musicTitle = new string[]
@@ -124,7 +143,12 @@ public class PlayerMovement : MonoBehaviour
             "Absurd Occurrences - Kyle Dixon & Michael Stein",
             "Bury Thine Friend - Billie Eilish",
             "Bound II - Kanye West",
-            "Where Art Thine Kingdom - DMX"
+            "Where Art Thine Kingdom - DMX",
+            "I Hath Five Upon Thee - Luniz",
+            "No Peasants - TLC",
+            "Because I Smoketh The Bud - Afroman",
+            "Whatever Thou Sayeth I Am - Eminem",
+            "Striken By Thunder - AC/DC"
         };
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
@@ -183,64 +207,91 @@ public class PlayerMovement : MonoBehaviour
        
     }
 
+    void SwordDone()
+    {
+        attacking = false;
+        swordHit.enabled = false;
+        sword.GetComponent<Renderer>().enabled = false;
+    }
     private void FixedUpdate()
     {
-        float moveSpeed = 0;
-        float forwardAmt = 1.0f;
-        float moveVertical = 0.0f;
-        if (Input.GetKey(KeyCode.W))
+        if(!attacking)
         {
-            moveSpeed = runSpeed;
-            moveVertical = 1.0f;
-        }
-
-        if(Input.GetKey(KeyCode.S))
-        {
-            moveSpeed = runSpeed;
-            moveVertical = -1.0f;
-        }
-
-        float moveHorizontal = 0.0f;
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveSpeed = runSpeed;
-            moveHorizontal = 1.0f;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveSpeed = runSpeed;
-            moveHorizontal = -1.0f;
-        }
-        float cameraRotY = GameObject.Find("/Main Camera").transform.localRotation.eulerAngles.y;
-
-        Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-        if (moveSpeed > 0)
-        {
-            animator.SetBool("isWalking", true);
-            if(!walk.isPlaying)
+            float moveSpeed = 0;
+            float forwardAmt = 1.0f;
+            float moveVertical = 0.0f;
+            if (Input.GetKey(KeyCode.W))
             {
-                walk.UnPause();
+                moveSpeed = runSpeed;
+                moveVertical = 1.0f;
             }
-            rb.MoveRotation(Quaternion.LookRotation(movement));
-        } else
-        {
-            if(walk.isPlaying)
-            {
-                walk.Pause();
-            }
-            animator.SetBool("isWalking", false);
-        }
 
-        //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
-        rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveSpeed = runSpeed;
+                moveVertical = -1.0f;
+            }
+
+            float moveHorizontal = 0.0f;
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveSpeed = runSpeed;
+                moveHorizontal = 1.0f;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveSpeed = runSpeed;
+                moveHorizontal = -1.0f;
+            }
+
+
+            float cameraRotY = GameObject.Find("/Main Camera").transform.localRotation.eulerAngles.y;
+
+            Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+            if (moveSpeed > 0)
+            {
+                animator.SetBool("isWalking", true);
+                if (!walk.isPlaying)
+                {
+                    walk.UnPause();
+                }
+                rb.MoveRotation(Quaternion.LookRotation(movement));
+            }
+            else
+            {
+                if (walk.isPlaying)
+                {
+                    walk.Pause();
+                }
+                animator.SetBool("isWalking", false);
+            }
+
+            //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
+            rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
+        }
+        
 
     }
     // Update is called once per frame
     void Update()
     {
-        if(musicTextDisableTime > 0f)
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            if(!attacking)
+            {
+                sword.GetComponent<Renderer>().enabled = true;
+                sword.GetComponent<Animator>().SetTrigger("Attack");
+                animator.SetTrigger("Attack");
+                swordHit.enabled = true;
+                Invoke("SwordDone", 0.6f);
+                attacking = true;
+            }
+            
+        }
+
+        if (musicTextDisableTime > 0f)
         {
             musicTextDisableTime -= Time.deltaTime;
         } else

@@ -26,4 +26,12 @@ public class GhostScript : MonoBehaviour
         
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "attack")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
