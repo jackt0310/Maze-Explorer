@@ -188,7 +188,6 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
-            /* FIX THIS - Plays next song even if not unlocked */
             if(song >= unlockedMusic.Length)
             {
                 song = 0;
@@ -206,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void PlayNextTrack()
     {
-        changeSong(currentSong + 1);
+        changeSong(-1);
     }
 
     void MusicTextDone()
