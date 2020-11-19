@@ -3523,7 +3523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pursuit: 0
   player: {fileID: 1475854108}
-  moveSpeed: 10
+  moveSpeed: 13
   demonHowl: {fileID: 1724185337}
 --- !u!1 &1233485127
 GameObject:
@@ -4364,7 +4364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 100
   walkSpeed: 10
-  runSpeed: 15
+  runSpeed: 12
   turnSpeed: 2
   jumps: 1
   jumpForce: 10
@@ -4421,7 +4421,7 @@ MonoBehaviour:
   grenade: {fileID: 2439151427286666426, guid: 84672cfdc8a9a774abcb945269cf92b4, type: 3}
   moveAttack: 0
   rollSpeed: 25
-  moveAttackSpeed: 20
+  moveAttackSpeed: 12
 --- !u!54 &1475854110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4808,9 +4808,13 @@ MonoBehaviour:
   key: {fileID: 8771997308406452945, guid: b08f14d39bbb6d84e9efaca46f4d9225, type: 3}
   player: {fileID: 1475854108}
   spawnRateNote: 10
-  spawnRateBozu: 10
-  initSpawnNote: 5
-  initSpawnBozu: 3
+  spawnRateBozu: 2
+  initSpawnNote: 3
+  initSpawnBozu: 10
+  maxNoteAmt: 5
+  noteCount: 0
+  maxNoteCount: 0
+  maxBozuAmt: 30
 --- !u!1 &1569031689
 GameObject:
   m_ObjectHideFlags: 0
