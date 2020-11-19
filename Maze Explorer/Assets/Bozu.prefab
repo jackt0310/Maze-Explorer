@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 3
+  moveSpeed: 6
+  ghostDeath: {fileID: 0}
 --- !u!65 &8682723350116428702
 BoxCollider:
   m_ObjectHideFlags: 0

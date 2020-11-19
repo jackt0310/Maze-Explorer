@@ -85,6 +85,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool moveAttack = false;
 
+    public float rollSpeed = 25f;
+    public float moveAttackSpeed = 20f;
+
     void Start()
     {
         demon = GameObject.Find("/demon").GetComponent<DemonScript>();
@@ -282,12 +285,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             } else if (rolling)
             {
-                moveSpeed = runSpeed * 2.5f;
+                moveSpeed = rollSpeed;
                 moveVertical = 1.0f;
 
             } else
             {
-                moveSpeed = runSpeed * 2f;
+                moveSpeed = moveAttackSpeed;
                 moveVertical = 1.0f;
             }
 
