@@ -73,6 +73,14 @@ public class PlayerMovement : MonoBehaviour
     int songsUnlocked = 1;
 
     public bool rolling = false;
+    public Animator bowAnimate;
+
+    public SkinnedMeshRenderer bowMesh;
+    public SkinnedMeshRenderer arrowMesh;
+    public bool canFire = true;
+    public bool drawn = false;
+
+    public GameObject arrow;
 
     void Start()
     {
@@ -277,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
             }
             
             
-            if(Input.GetKey(KeyCode.E))
+            if(Input.GetKey(KeyCode.E) && !drawn)
             {
                 if (!rolling)
                 {
@@ -319,8 +327,23 @@ public class PlayerMovement : MonoBehaviour
             //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
             rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
         }
-        
 
+        canFire = true;
+
+    }
+    
+    void BowGone()
+    {
+        bowMesh.enabled = false;
+        canFire = true;
+    }
+
+    void FireArrow()
+    {
+        arrowMesh.enabled = false;
+        Invoke("BowGone", .5f);
+        GameObject projectile = Instantiate(arrow, transform.position + transform.forward * 5f, transform.rotation * Quaternion.Euler(0, 90, 0));
+        projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 5000f);
     }
 
     void RollForce()
@@ -347,6 +370,23 @@ public class PlayerMovement : MonoBehaviour
                 attacking = true;
             }
             
+        }
+        
+
+        if(Input.GetKeyDown(KeyCode.Mouse1) && canFire)
+        {
+            canFire = false;
+            bowAnimate.SetTrigger("Draw");
+            bowMesh.enabled = true;
+            arrowMesh.enabled = true;
+            drawn = true;
+        }
+
+        if(Input.GetKeyUp(KeyCode.Mouse1) && drawn)
+        {
+            bowAnimate.SetTrigger("Fire");
+            Invoke("FireArrow", .2f);
+            drawn = false;
         }
 
         if (musicTextDisableTime > 0f)
