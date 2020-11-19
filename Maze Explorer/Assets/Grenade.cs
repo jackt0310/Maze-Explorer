@@ -9,6 +9,7 @@ public class Grenade : MonoBehaviour
     public float force = 7000f;
 
     public float explosionSize = 10f;
+    public AudioSource explosionSound;
 
     public GameObject explosionEffect;
 
@@ -18,6 +19,7 @@ public class Grenade : MonoBehaviour
     void Start()
     {
         countdown = delay;
+        explosionSound = GameObject.Find("Main Camera/Explosion").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -25,7 +27,6 @@ public class Grenade : MonoBehaviour
         countdown -= Time.deltaTime;
         if (countdown <= 0 && !isExploded)
         {
-
             Explode();
             isExploded = true;
         }
@@ -33,6 +34,7 @@ public class Grenade : MonoBehaviour
 
     void Explode()
     {
+        explosionSound.Play();
         GameObject explosionObject = Instantiate(explosionEffect, transform.position, transform.rotation) as GameObject;
         explosionObject.transform.localScale = new Vector3(explosionSize, explosionSize, explosionSize);
         Destroy(explosionObject, 1.9f);
@@ -42,9 +44,18 @@ public class Grenade : MonoBehaviour
         foreach (Collider nearbyObject in colliders)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if (rb != null)
+            /*if (rb != null)
             {
                 rb.AddExplosionForce(force, transform.position, radius);
+            }*/
+
+            if(nearbyObject.tag == "bozu")
+            {
+                GhostScript ghost = nearbyObject.GetComponent<GhostScript>();
+                if(ghost != null)
+                {
+                    ghost.Die();
+                }
             }
         }
         Destroy(gameObject);

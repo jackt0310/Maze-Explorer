@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     public bool drawn = false;
 
     public GameObject arrow;
+    public GameObject grenade;
 
     void Start()
     {
@@ -357,6 +358,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject projectile = Instantiate(grenade, transform.position + new Vector3(0f, 3f, 0f) + transform.forward * 5f, transform.rotation);
+            projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
+
+        }
         if (Input.GetKey(KeyCode.Mouse0))
         {
             if(!attacking)

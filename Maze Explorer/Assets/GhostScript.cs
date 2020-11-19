@@ -30,12 +30,17 @@ public class GhostScript : MonoBehaviour
 
     }
 
+    public void Die()
+    {
+        ghostDeath.Play();
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "attack")
         {
-            ghostDeath.Play();
-            Destroy(gameObject);
+            Die();
         }
     }
 }
