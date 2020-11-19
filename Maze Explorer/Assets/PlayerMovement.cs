@@ -379,8 +379,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if(!attacking)
             {
-                sword.GetComponent<Renderer>().enabled = true;
-                sword.GetComponent<Animator>().SetTrigger("Attack");
                 animator.SetTrigger("Attack");
                 swordHit.enabled = true;
                 swordNoise.Play();
@@ -388,11 +386,15 @@ public class PlayerMovement : MonoBehaviour
                 attacking = true;
                 if(animator.GetBool("isWalking"))
                 {
+                    sword.GetComponent<Renderer>().enabled = true;
+                    sword.GetComponent<Animator>().SetTrigger("MoveAttack");
                     moveAttack = true;
                     Invoke("StopMoveAttack", 0.85f);
                     Invoke("SwordDone", 0.85f);
                 } else
                 {
+                    sword.GetComponent<Renderer>().enabled = true;
+                    sword.GetComponent<Animator>().SetTrigger("Attack");
                     Invoke("SwordDone", 0.6f);
                 }
             }
