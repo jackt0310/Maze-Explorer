@@ -1494,15 +1494,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6aca7af13ccbbfd48a7bf3c9bb962fce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.4904814
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6aca7af13ccbbfd48a7bf3c9bb962fce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3721365
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6aca7af13ccbbfd48a7bf3c9bb962fce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.55707973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6aca7af13ccbbfd48a7bf3c9bb962fce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4419,6 +4419,7 @@ MonoBehaviour:
   drawn: 0
   arrow: {fileID: 8502444555340486346, guid: fa4726bcd4c115c43bbedd3d342b50d9, type: 3}
   grenade: {fileID: 2439151427286666426, guid: 84672cfdc8a9a774abcb945269cf92b4, type: 3}
+  moveAttack: 0
 --- !u!54 &1475854110
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     // Components
     private Animator animator;
     Rigidbody rb;
-    
+
     // Stats
     public float moveSpeed = 100f;
     public float walkSpeed = 10f;
@@ -82,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject arrow;
     public GameObject grenade;
+
+    public bool moveAttack = false;
 
     void Start()
     {
@@ -208,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
             }
         } else
         {
-            if(song >= unlockedMusic.Length)
+            if (song >= unlockedMusic.Length)
             {
                 song = 0;
             }
@@ -229,13 +231,13 @@ public class PlayerMovement : MonoBehaviour
 
     void MusicTextDone()
     {
-        if(musicTextDisableTime <= 0f)
+        if (musicTextDisableTime <= 0f)
         {
             musicText.enabled = false;
             musicInfoText.enabled = false;
             hymnsUnlockedText.enabled = false;
         }
-       
+
     }
 
     void SwordDone()
@@ -246,13 +248,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(!attacking)
+        if (!attacking || moveAttack)
         {
             float moveSpeed = 0;
             float forwardAmt = 1.0f;
             float moveVertical = 0.0f;
             float moveHorizontal = 0.0f;
-            if (!rolling)
+            if (!rolling && !moveAttack)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
@@ -266,7 +268,7 @@ public class PlayerMovement : MonoBehaviour
                     moveVertical = -1.0f;
                 }
 
-               
+
                 if (Input.GetKey(KeyCode.D))
                 {
                     moveSpeed = runSpeed;
@@ -278,20 +280,24 @@ public class PlayerMovement : MonoBehaviour
                     moveSpeed = runSpeed;
                     moveHorizontal = -1.0f;
                 }
-            } else
+            } else if (rolling)
             {
                 moveSpeed = runSpeed * 2.5f;
                 moveVertical = 1.0f;
 
+            } else
+            {
+                moveSpeed = runSpeed * 2f;
+                moveVertical = 1.0f;
             }
-            
-            
-            if(Input.GetKey(KeyCode.E) && !drawn)
+
+
+            if (Input.GetKey(KeyCode.E) && !drawn)
             {
                 if (!rolling)
                 {
                     Invoke("RollForce", .2f);
-                    
+
                     animator.SetTrigger("Roll");
                     rolling = true;
                     Invoke("StopRolling", 1.2f);
@@ -303,7 +309,7 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-            if(rolling)
+            if (rolling || moveAttack)
             {
                 movement = transform.forward;
             }
@@ -355,6 +361,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rolling = false;
     }
+
+    void StopMoveAttack()
+    {
+        moveAttack = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -373,8 +384,17 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("Attack");
                 swordHit.enabled = true;
                 swordNoise.Play();
-                Invoke("SwordDone", 0.6f);
+                
                 attacking = true;
+                if(animator.GetBool("isWalking"))
+                {
+                    moveAttack = true;
+                    Invoke("StopMoveAttack", 0.85f);
+                    Invoke("SwordDone", 0.85f);
+                } else
+                {
+                    Invoke("SwordDone", 0.6f);
+                }
             }
             
         }

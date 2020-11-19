@@ -4,8 +4,11 @@ ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
-      74: 4259541590054348565
-    second: Artorias_Sword|Artorias_SwordAction
+      74: 4785505465523266539
+    second: Artorias_Sword|SwordAction
+  - first:
+      74: -7726342676495164693
+    second: Artorias_Sword|SwordActionMove
   externalObjects:
   - first:
       type: UnityEngine:Material
