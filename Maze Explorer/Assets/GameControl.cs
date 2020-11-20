@@ -30,7 +30,7 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         playerMove = player.GetComponent<PlayerMovement>();
-        maxNoteCount = playerMove.unlockedMusic.Length;
+        //maxNoteCount = playerMove.unlockedMusic.Length;
         noteCount = 1;
         minX = GetComponent<Collider>().bounds.min.x;
         maxX = GetComponent<Collider>().bounds.max.x;

@@ -34,7 +34,7 @@ public class MazeLoader : MonoBehaviour {
 				mazeCells [r, c] = new MazeCell ();
 				// change this depending on the size you want the hallway
 				// make sure floors are big enough for this var
-				size = 12f;
+				size = 22f;
 
 				// create floor for each cell
 				mazeCells [r, c] .floor = Instantiate (floors, new Vector3 (r*size, 0, c*size), Quaternion.identity) as GameObject;
