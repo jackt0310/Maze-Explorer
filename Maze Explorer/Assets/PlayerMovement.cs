@@ -49,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource music_19;
     public AudioSource music_20;
     public AudioSource music_21;
+    public AudioSource music_22;
+    public AudioSource music_23;
+    public AudioSource music_24;
     public BoxCollider swordHit;
 
     public bool isDead = false;
@@ -123,6 +126,9 @@ public class PlayerMovement : MonoBehaviour
             false,
             false,
             false,
+            false,
+            false,
+            false,
             false
         };
         musicAudio = new AudioSource[] {
@@ -147,7 +153,10 @@ public class PlayerMovement : MonoBehaviour
             music_18,
             music_19,
             music_20,
-            music_21
+            music_21,
+            music_22,
+            music_23,
+            music_24
         };
 
         musicTitle = new string[]
@@ -173,7 +182,10 @@ public class PlayerMovement : MonoBehaviour
             "No Peasants - TLC",
             "Because I Smoketh The Bud - Afroman",
             "Whatever Thou Sayeth I Am - Eminem",
-            "Striken By Thunder - AC/DC"
+            "Striken By Thunder - AC/DC",
+            "It Shall Be None But I - NYSNC",
+            "The King's Regulators - Warren G & Nate Dogg",
+            "Under Thy Spell - The Notorious B.I.G."
         };
         musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
         musicText.text = "Now playing: " + musicTitle[currentSong];
