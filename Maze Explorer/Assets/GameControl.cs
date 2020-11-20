@@ -89,7 +89,7 @@ public class GameControl : MonoBehaviour
             float spawnZ = Random.Range(minZ, maxZ);
             float spawnY = yCoord;
             Vector3 spawnLoc = new Vector3(spawnX, spawnY, spawnZ);
-            if (player != null && Vector3.Distance(spawnLoc, player.transform.position) > 15f)
+            if (player != null && Vector3.Distance(spawnLoc, player.transform.position) > 40f)
             {
                 Instantiate(bozu, spawnLoc, Quaternion.identity);
             }

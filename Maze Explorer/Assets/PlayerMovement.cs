@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        demon = GameObject.Find("/demon").GetComponent<DemonScript>();
+        //demon = GameObject.Find("/demon").GetComponent<DemonScript>();
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -517,14 +517,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "demonZone")
         {
-            demon.pursuit = true;
+            //demon.pursuit = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "demonZone")
         {
-            demon.pursuit = false;
+            //demon.pursuit = false;
         }
     }
 
