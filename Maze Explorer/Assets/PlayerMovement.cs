@@ -88,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
     public float rollSpeed = 25f;
     public float moveAttackSpeed = 20f;
 
+    public Text HymnsCollectedText;
+    public Text KeyCollectedText;
+
     void Start()
     {
         demon = GameObject.Find("/demon").GetComponent<DemonScript>();
@@ -181,6 +184,13 @@ public class PlayerMovement : MonoBehaviour
         musicInfoText.enabled = false;
 
         hymnsUnlockedText = GameObject.Find("/Canvas/HymnsUnlockedText").GetComponent<Text>();
+
+        HymnsCollectedText = GameObject.Find("Canvas/HymnsCollectedText").GetComponent<Text>();
+        HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
+
+        KeyCollectedText = GameObject.Find("Canvas/KeyCollectedText").GetComponent<Text>();
+        KeyCollectedText.text = "Key: 0/1";
+
     }
 
     void changeSong(int song)
@@ -475,6 +485,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.collider.transform.parent.gameObject);
             hasKey = true;
+            KeyCollectedText.text = "Key: 1/1";
             fanfare.Play();
         }
         if (collision.collider.tag == "bozu")
@@ -527,6 +538,7 @@ public class PlayerMovement : MonoBehaviour
         {
             unlockedMusic[song] = true;
             songsUnlocked++;
+            HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
             return song;
         }
         song = 0;
@@ -536,6 +548,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 unlockedMusic[song] = true;
                 songsUnlocked++;
+                HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
                 return song;
             }
             song++;
