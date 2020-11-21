@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -332,6 +333,8 @@ public class PlayerMovement : MonoBehaviour
 
             float cameraRotY = GameObject.Find("/Main Camera").transform.localRotation.eulerAngles.y;
 
+
+
             Vector3 movement = Quaternion.AngleAxis(cameraRotY, Vector3.up) * new Vector3(moveHorizontal, 0.0f, moveVertical);
 
             if (rolling || moveAttack)
@@ -346,6 +349,29 @@ public class PlayerMovement : MonoBehaviour
                     walk.UnPause();
                 }
                 rb.MoveRotation(Quaternion.LookRotation(movement));
+
+
+                /* https://wiki.unity3d.com/index.php/RigidbodyFPSWalker */
+                // Calculate how fast we should be moving
+                var targetVelocity = transform.forward * moveSpeed;
+
+                // Apply a force that attempts to reach our target velocity
+                var velocity = rb.velocity;
+                var velocityChange = (targetVelocity - velocity);
+                var maxVelocityChange = 100000f;
+                var maxYVelocity = 25f;
+                velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+                velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+                if (velocity.y > maxYVelocity)
+                {
+                    velocityChange.y = (maxYVelocity - velocity.y);
+                    velocityChange.y = Mathf.Clamp(velocityChange.y, -maxVelocityChange, maxVelocityChange);
+                }
+                else
+                {
+                    velocityChange.y = 0;
+                }
+                rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
             else
             {
@@ -356,8 +382,9 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isWalking", false);
             }
 
+
             //rb.AddForce(movement * moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
-            rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
+            //rb.MovePosition(transform.position + movement * moveSpeed * Time.deltaTime);
         }
 
         canFire = true;
@@ -518,6 +545,9 @@ public class PlayerMovement : MonoBehaviour
         if (other.tag == "demonZone")
         {
             //demon.pursuit = true;
+        } else if(other.tag == "end")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
     private void OnTriggerExit(Collider other)

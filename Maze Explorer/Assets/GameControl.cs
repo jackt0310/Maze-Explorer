@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameControl : MonoBehaviour
 {
-    float minX;
-    float maxX;
-    float minZ;
-    float maxZ;
-    float yCoord;
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
+    public float yCoord;
 
     public GameObject note;
     public GameObject bozu;
@@ -25,11 +25,16 @@ public class GameControl : MonoBehaviour
     public int noteCount;
     public int maxNoteCount;
     public int maxBozuAmt;
+    public bool bozuWander = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerMove = player.GetComponent<PlayerMovement>();
+        if(player != null)
+        {
+            playerMove = player.GetComponent<PlayerMovement>();
+        }
+        
         //maxNoteCount = playerMove.unlockedMusic.Length;
         noteCount = 1;
         minX = GetComponent<Collider>().bounds.min.x;
@@ -58,7 +63,7 @@ public class GameControl : MonoBehaviour
         GameObject[] notesArray = GameObject.FindGameObjectsWithTag("note");
 
         int noteAmt = notesArray.Length - 1;
-        if (!playerMove.unlockedAll && noteCount < maxNoteCount && noteAmt < maxNoteAmt)
+        if (noteCount < maxNoteCount && noteAmt < maxNoteAmt)
         {
             float spawnX = Random.Range(minX, maxX);
             float spawnZ = Random.Range(minZ, maxZ);
@@ -89,13 +94,20 @@ public class GameControl : MonoBehaviour
             float spawnZ = Random.Range(minZ, maxZ);
             float spawnY = yCoord;
             Vector3 spawnLoc = new Vector3(spawnX, spawnY, spawnZ);
-            if (player != null && Vector3.Distance(spawnLoc, player.transform.position) > 40f)
+            if (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f)
             {
-                Instantiate(bozu, spawnLoc, Quaternion.identity);
+                GameObject current = Instantiate(bozu, spawnLoc, Quaternion.identity);
+
+                if(bozuWander)
+                {
+                    GhostScript ghost = current.GetComponent<GhostScript>();
+                    ghost.wander = true;
+                    ghost.Pause();
+                }
             }
             else
             {
-                if (player != null)
+               // if (player != null)
                 {
                     SpawnBozu();
                 }

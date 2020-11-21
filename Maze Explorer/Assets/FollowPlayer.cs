@@ -13,7 +13,7 @@ public class FollowPlayer : MonoBehaviour
     public bool rotateAroundPlayer = true;
     public float rotationSpeed = 5.0f;
     public float heightVal = 5f;
-    
+    public bool controllable = true;
     
     // Start is called before the first frame update
     void Start()
@@ -24,8 +24,12 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Quaternion turnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
-        offset = turnAngle * offset;
+        if(controllable)
+        {
+            Quaternion turnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
+            offset = turnAngle * offset;
+        }
+        
         Vector3 newPos = player.transform.position + offset;
         transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor);
         transform.LookAt(player.transform.position + new Vector3(0, 3, 0));

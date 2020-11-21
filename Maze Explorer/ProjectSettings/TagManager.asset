@@ -8,6 +8,7 @@ TagManager:
   - note
   - demonZone
   - attack
+  - end
   layers:
   - Default
   - TransparentFX
