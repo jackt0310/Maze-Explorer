@@ -14,17 +14,17 @@ public class FollowPlayer : MonoBehaviour
     public float rotationSpeed = 5.0f;
     public float heightVal = 5f;
     public bool controllable = true;
+    public PlayerMovement playerMove;
     
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(controllable)
+        if(controllable && !playerMove.gamePaused)
         {
             Quaternion turnAngle = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * rotationSpeed, Vector3.up);
             offset = turnAngle * offset;

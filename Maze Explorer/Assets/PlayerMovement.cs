@@ -96,9 +96,13 @@ public class PlayerMovement : MonoBehaviour
     public Text KeyCollectedText;
 
     public GameControl control;
+    public bool gamePaused = false;
+    public GameObject pauseMenu;
+    public GameObject playerUI;
 
     void Start()
     {
+        pauseMenu.SetActive(false);
         //demon = GameObject.Find("/demon").GetComponent<DemonScript>();
         GameObject.Find("/Main Camera").GetComponent<FollowPlayer>().player = gameObject;
         rb = GetComponent<Rigidbody>();
@@ -184,6 +188,22 @@ public class PlayerMovement : MonoBehaviour
         
         KeyCollectedText.text = "Key: 0/1";
 
+    }
+    
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        playerUI.SetActive(true);
+        Time.timeScale = 1f;
+        gamePaused = false;
+    }
+
+    public void Pause()
+    {
+        pauseMenu.SetActive(true);
+        //playerUI.SetActive(false);
+        Time.timeScale = 0f;
+        gamePaused = true;
     }
 
     void changeSong(int song)
@@ -401,84 +421,100 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            GameObject projectile = Instantiate(grenade, transform.position + new Vector3(0f, 3f, 0f) + transform.forward * 5f, transform.rotation);
-            projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
-
-        }
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            if(!attacking)
+            if(gamePaused)
             {
-                animator.SetTrigger("Attack");
-                swordHit.enabled = true;
-                swordNoise.Play();
-                
-                attacking = true;
-                if(animator.GetBool("isWalking"))
-                {
-                    sword.GetComponent<Renderer>().enabled = true;
-                    sword.GetComponent<Animator>().SetTrigger("MoveAttack");
-                    moveAttack = true;
-                    Invoke("StopMoveAttack", 0.85f);
-                    Invoke("SwordDone", 0.85f);
-                } else
-                {
-                    sword.GetComponent<Renderer>().enabled = true;
-                    sword.GetComponent<Animator>().SetTrigger("Attack");
-                    Invoke("SwordDone", 0.6f);
-                }
+                Resume();
+            } else
+            {
+                Pause();
             }
-            
-        }
-        
-
-        if(Input.GetKeyDown(KeyCode.Mouse1) && canFire)
-        {
-            canFire = false;
-            bowAnimate.SetTrigger("Draw");
-            bowMesh.enabled = true;
-            arrowMesh.enabled = true;
-            drawn = true;
         }
 
-        if(Input.GetKeyUp(KeyCode.Mouse1) && drawn)
+        if(!gamePaused)
         {
-            bowAnimate.SetTrigger("Fire");
-            Invoke("FireArrow", .2f);
-            drawn = false;
-        }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GameObject projectile = Instantiate(grenade, transform.position + new Vector3(0f, 3f, 0f) + transform.forward * 5f, transform.rotation);
+                projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
 
-        if (musicTextDisableTime > 0f)
-        {
-            musicTextDisableTime -= Time.deltaTime;
-        } else
-        {
-            MusicTextDone();
-        }
+            }
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                if (!attacking)
+                {
+                    animator.SetTrigger("Attack");
+                    swordHit.enabled = true;
+                    swordNoise.Play();
 
-        if (switchTrackTime> 0f)
-        {
-            switchTrackTime -= Time.deltaTime;
-        }
-        else
-        {
-            PlayNextTrack();
-        }
+                    attacking = true;
+                    if (animator.GetBool("isWalking"))
+                    {
+                        sword.GetComponent<Renderer>().enabled = true;
+                        sword.GetComponent<Animator>().SetTrigger("MoveAttack");
+                        moveAttack = true;
+                        Invoke("StopMoveAttack", 0.85f);
+                        Invoke("SwordDone", 0.85f);
+                    }
+                    else
+                    {
+                        sword.GetComponent<Renderer>().enabled = true;
+                        sword.GetComponent<Animator>().SetTrigger("Attack");
+                        Invoke("SwordDone", 0.6f);
+                    }
+                }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Die();
-        }
-        if(hasKey)
-        {
-            Destroy(door);
-        }
+            }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            changeSong(-1);
+
+            if (Input.GetKeyDown(KeyCode.Mouse1) && canFire)
+            {
+                canFire = false;
+                bowAnimate.SetTrigger("Draw");
+                bowMesh.enabled = true;
+                arrowMesh.enabled = true;
+                drawn = true;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Mouse1) && drawn)
+            {
+                bowAnimate.SetTrigger("Fire");
+                Invoke("FireArrow", .2f);
+                drawn = false;
+            }
+
+            if (musicTextDisableTime > 0f)
+            {
+                musicTextDisableTime -= Time.deltaTime;
+            }
+            else
+            {
+                MusicTextDone();
+            }
+
+            if (switchTrackTime > 0f)
+            {
+                switchTrackTime -= Time.deltaTime;
+            }
+            else
+            {
+                PlayNextTrack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Die();
+            }
+            if (hasKey)
+            {
+                Destroy(door);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                changeSong(-1);
+            }
         }
     }
 

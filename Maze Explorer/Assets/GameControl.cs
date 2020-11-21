@@ -39,7 +39,6 @@ public class GameControl : MonoBehaviour
         if(player != null)
         {
             playerMove = player.GetComponent<PlayerMovement>();
-            maxNoteCount = playerMove.unlockedMusic.Length;
         }
         
         noteCount = 1;
