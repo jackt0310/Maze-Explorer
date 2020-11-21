@@ -15,21 +15,28 @@ public class GhostScript : MonoBehaviour
     public Vector3 nextPoint;
 
     public bool moving = false;
+    public GameControl control;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(!wander)
+        StartStuff();
+    }
+
+    public void StartStuff()
+    {
+        control = GameObject.Find("/Plane").GetComponent<GameControl>();
+        if (!wander)
         {
             player = GameObject.Find("/knight");
             ghostDeath = GameObject.Find("Main Camera/GhostDeath").GetComponent<AudioSource>();
-        } else
+        }
+        else
         {
             plane = GameObject.Find("/Plane").GetComponent<GameControl>();
         }
-        
-    }
 
+    }
     public void Go()
     {
         if(!moving)
@@ -75,6 +82,7 @@ public class GhostScript : MonoBehaviour
 
     public void Die()
     {
+        control.bozuAmt--;
         ghostDeath.Play();
         Destroy(gameObject);
     }

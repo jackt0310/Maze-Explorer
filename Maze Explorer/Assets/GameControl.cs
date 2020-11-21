@@ -27,29 +27,40 @@ public class GameControl : MonoBehaviour
     public int maxBozuAmt;
     public bool bozuWander = false;
 
+    public int bozuAmt;
+    public int noteAmt;
+
     // Start is called before the first frame update
     void Start()
     {
+        noteAmt = 0;
+        bozuAmt = 0;
+
         if(player != null)
         {
             playerMove = player.GetComponent<PlayerMovement>();
+            maxNoteCount = playerMove.unlockedMusic.Length;
         }
         
-        //maxNoteCount = playerMove.unlockedMusic.Length;
         noteCount = 1;
+        
         minX = GetComponent<Collider>().bounds.min.x;
         maxX = GetComponent<Collider>().bounds.max.x;
         minZ = GetComponent<Collider>().bounds.min.z;
         maxZ = GetComponent<Collider>().bounds.max.z;
         yCoord = GetComponent<Collider>().bounds.max.y + 2;
+        
+        initSpawn();
+    }
 
+    void initSpawn()
+    {
         SpawnNoteAmt(initSpawnNote);
         SpawnBozuAmt(initSpawnBozu);
         SpawnKey();
         InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
         InvokeRepeating("SpawnBozu", spawnRateBozu, spawnRateBozu);
     }
-
     void SpawnNoteAmt(int amt)
     {
         for(int i = 0; i < amt; i++)
@@ -60,9 +71,6 @@ public class GameControl : MonoBehaviour
 
     void SpawnNote()
     {
-        GameObject[] notesArray = GameObject.FindGameObjectsWithTag("note");
-
-        int noteAmt = notesArray.Length - 1;
         if (noteCount < maxNoteCount && noteAmt < maxNoteAmt)
         {
             float spawnX = Random.Range(minX, maxX);
@@ -70,6 +78,7 @@ public class GameControl : MonoBehaviour
             float spawnY = yCoord;
             Instantiate(note, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
             noteCount++;
+            noteAmt++;
         }
     }
 
@@ -84,9 +93,6 @@ public class GameControl : MonoBehaviour
 
     void SpawnBozu()
     {
-        GameObject[] bozusArray = GameObject.FindGameObjectsWithTag("bozu");
-
-        int bozuAmt = bozusArray.Length - 1;
 
         if(bozuAmt < maxBozuAmt)
         {
@@ -97,7 +103,7 @@ public class GameControl : MonoBehaviour
             if (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f)
             {
                 GameObject current = Instantiate(bozu, spawnLoc, Quaternion.identity);
-
+                bozuAmt++;
                 if(bozuWander)
                 {
                     GhostScript ghost = current.GetComponent<GhostScript>();
@@ -122,10 +128,5 @@ public class GameControl : MonoBehaviour
         float spawnY = yCoord;
         Instantiate(key, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

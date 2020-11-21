@@ -95,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
     public Text HymnsCollectedText;
     public Text KeyCollectedText;
 
+    public GameControl control;
+
     void Start()
     {
         //demon = GameObject.Find("/demon").GetComponent<DemonScript>();
@@ -105,33 +107,16 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         walk.Play();
         walk.Pause();
-        unlockedMusic = new bool[] {
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        };
+
+        int musicAmt = 25;
+        unlockedMusic = new bool[25];
+        unlockedMusic[0] = true;
+
+        for(int i = 1; i < musicAmt; i++)
+        {
+            unlockedMusic[i] = false;
+        }
+
         musicAudio = new AudioSource[] {
             music_0,
             music_1,
@@ -188,20 +173,15 @@ public class PlayerMovement : MonoBehaviour
             "The King's Regulators - Warren G & Nate Dogg",
             "Under Thy Spell - The Notorious B.I.G."
         };
-        musicText = GameObject.Find("/Canvas/MusicText").GetComponent<Text>();
+        
         musicText.text = "Now playing: " + musicTitle[currentSong];
         switchTrackTime = musicAudio[currentSong].clip.length;
         musicTextDisableTime = 7f;
-
-        musicInfoText = GameObject.Find("/Canvas/MusicInfoText").GetComponent<Text>();
+        
         musicInfoText.enabled = false;
-
-        hymnsUnlockedText = GameObject.Find("/Canvas/HymnsUnlockedText").GetComponent<Text>();
-
-        HymnsCollectedText = GameObject.Find("Canvas/HymnsCollectedText").GetComponent<Text>();
+        
         HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
-
-        KeyCollectedText = GameObject.Find("Canvas/KeyCollectedText").GetComponent<Text>();
+        
         KeyCollectedText.text = "Key: 0/1";
 
     }
@@ -534,6 +514,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.tag == "note")
         {
             Destroy(collision.collider.gameObject);
+            control.noteAmt--;
             changeSong(unlockNext());
             checkIfDoneMusic();
         }

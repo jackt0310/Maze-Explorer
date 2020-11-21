@@ -1881,6 +1881,8 @@ MonoBehaviour:
   maxNoteCount: 5
   maxBozuAmt: 20
   bozuWander: 1
+  bozuAmt: 0
+  noteAmt: 0
 --- !u!1 &1716800832
 GameObject:
   m_ObjectHideFlags: 0
