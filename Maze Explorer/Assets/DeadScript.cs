@@ -9,7 +9,7 @@ public class DeadScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        restart = GameObject.Find("/Canvas/RestartText");
+        restart = GameObject.Find("/Canvas/PlayerUI/RestartText");
         Invoke("RestartText", 3f);
     }
 
