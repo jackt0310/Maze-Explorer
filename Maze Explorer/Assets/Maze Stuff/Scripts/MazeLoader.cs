@@ -40,7 +40,7 @@ public class MazeLoader : MonoBehaviour {
                 break;
             case 4:
                 // Orange
-                replace = new Color(255f, 69f, 0f);
+                replace = new Color(255f / 255f, 69f / 255f, 0f / 255f);
                 break;
             default:
                 replace = Color.white;
