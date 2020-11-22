@@ -47,6 +47,14 @@ public class MenuOptions : MonoBehaviour
         
     }
 
+    public void ArenaMode()
+    {
+        InventoryManagement.Difficulty = "Medium";
+        InventoryManagement.GrenadeAmt = 999;
+        InventoryManagement.ArrowAmt = 999;
+        SceneManager.LoadScene("Arena");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

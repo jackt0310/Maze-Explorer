@@ -117,8 +117,8 @@ public class GameControl : MonoBehaviour
             {
                 if (hit.collider.tag.Equals("wall"))
                 {
-                        wallCollide = true;
-                        SpawnNote();
+                    wallCollide = true;
+                    SpawnNote();
                 }
             }
             
