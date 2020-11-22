@@ -5474,8 +5474,8 @@ MonoBehaviour:
   spawnRateNote: 10
   spawnRateBozu: 10
   initSpawnNote: 5
-  initSpawnBozu: 5
-  maxNoteAmt: 5
+  initSpawnBozu: 7
+  maxNoteAmt: 7
   noteCount: 0
   maxNoteCount: 5
   maxBozuAmt: 10

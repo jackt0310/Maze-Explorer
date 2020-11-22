@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource swordNoise;
     public bool attacking = false;
     public bool unlockedAll = false;
-    int songsUnlocked = 1;
+    int songsUnlocked;
 
     public bool rolling = false;
     public Animator bowAnimate;
@@ -112,15 +112,8 @@ public class PlayerMovement : MonoBehaviour
         walk.Play();
         walk.Pause();
 
-        int musicAmt = 25;
-        unlockedMusic = new bool[25];
-        unlockedMusic[0] = true;
-
-        for(int i = 1; i < musicAmt; i++)
-        {
-            unlockedMusic[i] = false;
-        }
-
+        unlockedMusic = InventoryManagement.UnlockedMusic;
+        songsUnlocked = InventoryManagement.SongsUnlocked;
         musicAudio = new AudioSource[] {
             music_0,
             music_1,
@@ -564,7 +557,16 @@ public class PlayerMovement : MonoBehaviour
             //demon.pursuit = true;
         } else if(other.tag == "end")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if(InventoryManagement.CurrentLevel < 4)
+            {
+                InventoryManagement.CurrentLevel = InventoryManagement.CurrentLevel + 1;
+                InventoryManagement.UnlockedMusic = unlockedMusic;
+                InventoryManagement.SongsUnlocked = songsUnlocked;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            } else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
     }
     private void OnTriggerExit(Collider other)
