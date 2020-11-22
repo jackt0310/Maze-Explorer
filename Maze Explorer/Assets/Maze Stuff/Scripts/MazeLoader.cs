@@ -25,8 +25,30 @@ public class MazeLoader : MonoBehaviour {
 
 	//this creates a grid of walls, every cell will have a north, south, east, west wall
 	private void InitializeMaze() {
-		// create 2d array to hold each maze cell
-		mazeCells = new MazeCell[mazeRows,mazeColumns];
+        Color replace;
+
+        switch (InventoryManagement.CurrentLevel)
+        {
+            case 1:
+                replace = Color.white;
+                break;
+            case 2:
+                replace = Color.red;
+                break;
+            case 3:
+                replace = Color.blue;
+                break;
+            case 4:
+                // Orange
+                replace = new Color(255f, 69f, 0f);
+                break;
+            default:
+                replace = Color.white;
+                break;
+        }
+
+        // create 2d array to hold each maze cell
+        mazeCells = new MazeCell[mazeRows,mazeColumns];
 		// go through each cell and create the grid of walls
 		for (int r = 0; r < mazeRows; r++) {
 			for (int c = 0; c < mazeColumns; c++) {
@@ -45,26 +67,32 @@ public class MazeLoader : MonoBehaviour {
 				if (c == 0) {
 					mazeCells[r,c].westWall = Instantiate (wall, new Vector3 (r*size, 5, (c*size) - (size/2f)), Quaternion.identity) as GameObject;
 					mazeCells [r, c].westWall.name = "West Wall " + r + "," + c;
-				}
+                    mazeCells[r, c].westWall.GetComponent<Renderer>().material.SetColor("_Color", replace);
+                    
+
+                }
 
 				// create east wall for every cell, not west otherwise we would have overlaps
 				mazeCells [r, c].eastWall = Instantiate (wall, new Vector3 (r*size, 5, (c*size) + (size/2f)), Quaternion.identity) as GameObject;
 				mazeCells [r, c].eastWall.name = "East Wall " + r + "," + c;
+                mazeCells[r, c].eastWall.GetComponent<Renderer>().material.SetColor("_Color", replace);
 
-				// if first row create a north wall
-				if (r == 0) {
+                // if first row create a north wall
+                if (r == 0) {
 					mazeCells [r, c].northWall = Instantiate (wall, new Vector3 ((r*size) - (size/2f), 5, c*size), Quaternion.identity) as GameObject;
 					mazeCells [r, c].northWall.name = "North Wall " + r + "," + c;
 					mazeCells [r, c].northWall.transform.Rotate (Vector3.up * 90f);
-				}
+                    mazeCells[r, c].northWall.GetComponent<Renderer>().material.SetColor("_Color", replace);
+                }
 
 				// create a south wall for every cell, not north otherwise we would have overlaps
 				mazeCells[r,c].southWall = Instantiate (wall, new Vector3 ((r*size) + (size/2f), 5, c*size), Quaternion.identity) as GameObject;
 				mazeCells [r, c].southWall.name = "South Wall " + r + "," + c;
 				mazeCells [r, c].southWall.transform.Rotate (Vector3.up * 90f);
+                mazeCells[r, c].southWall.GetComponent<Renderer>().material.SetColor("_Color", replace);
 
-				//make door opening for end of maze, always in the same spot bottom right
-				if (r == mazeRows-1 && c == mazeColumns-1) {
+                //make door opening for end of maze, always in the same spot bottom right
+                if (r == mazeRows-1 && c == mazeColumns-1) {
 					Destroy(mazeCells[r,c].southWall);
 				}
 			}

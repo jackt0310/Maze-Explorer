@@ -8,7 +8,7 @@ public class Initialize : MonoBehaviour
     void Start()
     {
         int musicAmt = 25;
-        bool[] unlockedMusic = new bool[25];
+        bool[] unlockedMusic = new bool[musicAmt];
         unlockedMusic[0] = true;
 
         for (int i = 1; i < musicAmt; i++)

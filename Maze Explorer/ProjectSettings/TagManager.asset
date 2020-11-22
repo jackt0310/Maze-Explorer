@@ -9,6 +9,7 @@ TagManager:
   - demonZone
   - attack
   - end
+  - wall
   layers:
   - Default
   - TransparentFX

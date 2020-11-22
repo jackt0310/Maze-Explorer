@@ -94,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Text HymnsCollectedText;
     public Text KeyCollectedText;
+    public Text levelText;
 
     public GameControl control;
     public bool gamePaused = false;
@@ -112,7 +113,22 @@ public class PlayerMovement : MonoBehaviour
         walk.Play();
         walk.Pause();
 
-        unlockedMusic = InventoryManagement.UnlockedMusic;
+
+        if(InventoryManagement.UnlockedMusic == null)
+        {
+            int musicAmt = 25;
+            bool[] unlockedMusic = new bool[musicAmt];
+            unlockedMusic[0] = true;
+
+            for (int i = 1; i < musicAmt; i++)
+            {
+                unlockedMusic[i] = false;
+            }
+        } else
+        {
+            unlockedMusic = (bool[]) InventoryManagement.UnlockedMusic.Clone();
+        }
+        
         songsUnlocked = InventoryManagement.SongsUnlocked;
         musicAudio = new AudioSource[] {
             music_0,
@@ -180,7 +196,8 @@ public class PlayerMovement : MonoBehaviour
         HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
         
         KeyCollectedText.text = "Key: 0/1";
-
+        levelText.text = "Level " + InventoryManagement.CurrentLevel;
+        
     }
     
     public void Resume()
@@ -565,6 +582,7 @@ public class PlayerMovement : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             } else
             {
+                InventoryManagement.CurrentLevel = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
