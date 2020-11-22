@@ -74,10 +74,28 @@ public class GameControl : MonoBehaviour
         {
             float spawnX = Random.Range(minX, maxX);
             float spawnZ = Random.Range(minZ, maxZ);
-            float spawnY = yCoord;
-            Instantiate(note, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
-            noteCount++;
-            noteAmt++;
+
+            Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+            RaycastHit hit;
+
+            bool wallCollide = false;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag.Equals("wall"))
+                {
+                        wallCollide = true;
+                        SpawnNote();
+                }
+            }
+            
+            if(!wallCollide)
+            {
+                float spawnY = yCoord;
+                Instantiate(note, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
+                noteCount++;
+                noteAmt++;
+            }
         }
     }
 
@@ -98,8 +116,24 @@ public class GameControl : MonoBehaviour
             float spawnX = Random.Range(minX, maxX);
             float spawnZ = Random.Range(minZ, maxZ);
             float spawnY = yCoord;
+
+
+            Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+            RaycastHit hit;
+
+            bool wallCollide = false;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag.Equals("wall"))
+                {
+                    wallCollide = true;
+                    SpawnBozu();
+                }
+            }
+
             Vector3 spawnLoc = new Vector3(spawnX, spawnY, spawnZ);
-            if (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f)
+            if (!wallCollide && (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f))
             {
                 GameObject current = Instantiate(bozu, spawnLoc, Quaternion.identity);
                 bozuAmt++;
@@ -125,7 +159,27 @@ public class GameControl : MonoBehaviour
         float spawnX = Random.Range(minX, maxX);
         float spawnZ = Random.Range(minZ, maxZ);
         float spawnY = yCoord;
-        Instantiate(key, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
+
+        Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+        RaycastHit hit;
+        bool wallCollide = false;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.tag.Equals("wall"))
+            {
+                wallCollide = true;
+                SpawnKey();
+            }
+        }
+
+        if (!wallCollide)
+        {
+            Instantiate(key, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
+        }
+
+        
+       
     }
     
 }
