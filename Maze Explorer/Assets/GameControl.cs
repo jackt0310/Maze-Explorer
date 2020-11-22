@@ -30,9 +30,42 @@ public class GameControl : MonoBehaviour
     public int bozuAmt;
     public int noteAmt;
 
+    public float bozuSpeed = 6f;
+    public float bozuSpeedMult = 1.2f;
+    public float bozuSpawnMult = 1.2f;
+    public bool title = false;
     // Start is called before the first frame update
     void Start()
     {
+        if(!title)
+        {
+            switch(InventoryManagement.Difficulty)
+            {
+                case "Easy":
+                    bozuSpeed = 4f;
+                    bozuSpeedMult = 1.05f;
+                    bozuSpawnMult = 1.05f;
+                    break;
+                case "Medium":
+                    bozuSpeedMult = 1.1f;
+                    bozuSpawnMult = 1.1f;
+                    break;
+                case "Hard":
+                    bozuSpeedMult = 1.2f;
+                    bozuSpawnMult = 1.2f;
+                    break;
+                case "Default":
+                    bozuSpeed = 4f;
+                    bozuSpeedMult = 1.05f;
+                    bozuSpawnMult = 1.05f;
+                    break;
+            }
+            bozuSpeed += bozuSpeed * ((bozuSpeedMult - 1) * (InventoryManagement.CurrentLevel - 1));
+            spawnRateBozu -= spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1));
+            initSpawnBozu += (int) Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
+            maxBozuAmt += (int) Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
+        
+        }
         noteAmt = 0;
         bozuAmt = 0;
 
@@ -136,10 +169,12 @@ public class GameControl : MonoBehaviour
             if (!wallCollide && (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f))
             {
                 GameObject current = Instantiate(bozu, spawnLoc, Quaternion.identity);
+                GhostScript ghost = current.GetComponent<GhostScript>();
+                ghost.moveSpeed = bozuSpeed;
+
                 bozuAmt++;
                 if(bozuWander)
                 {
-                    GhostScript ghost = current.GetComponent<GhostScript>();
                     ghost.wander = true;
                     ghost.Pause();
                 }

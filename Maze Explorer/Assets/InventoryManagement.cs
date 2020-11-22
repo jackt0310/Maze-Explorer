@@ -7,6 +7,7 @@ public static class InventoryManagement
     private static bool[] unlockedMusic;
     private static int currentLevel;
     private static int songsUnlocked;
+    private static string difficulty;
 
     public static bool[] UnlockedMusic
     {
@@ -41,6 +42,18 @@ public static class InventoryManagement
         set
         {
             songsUnlocked = value;
+        }
+    }
+
+    public static string Difficulty
+    {
+        get
+        {
+            return difficulty;
+        }
+        set
+        {
+            difficulty = value;
         }
     }
 }

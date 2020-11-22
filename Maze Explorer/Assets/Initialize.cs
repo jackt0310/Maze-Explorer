@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Initialize : MonoBehaviour
 {
+    public GameObject canvas;
+    public GameObject mainMenu;
+    public GameObject difficultyMenu;
+    
     // Start is called before the first frame update
     void Start()
     {
+        canvas = GameObject.Find("/Canvas");
+        mainMenu = canvas.transform.Find("MainMenu").gameObject;
+        difficultyMenu = canvas.transform.Find("DifficultyMenu").gameObject;
+        difficultyMenu.SetActive(false);
         int musicAmt = 25;
         bool[] unlockedMusic = new bool[musicAmt];
         unlockedMusic[0] = true;
