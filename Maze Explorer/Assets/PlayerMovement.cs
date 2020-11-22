@@ -107,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
     public Text arrowText;
     public Text grenadeText;
 
+    public float health;
+    public float maxHealth = 100f;
+    public Text healthText;
+    public bool dying = false;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -118,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         walk.Play();
         walk.Pause();
-
+        health = maxHealth;
 
         if(InventoryManagement.UnlockedMusic == null)
         {
@@ -442,8 +447,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0 && !dying)
+        {
+            dying = true;
+            Die();
+        }
         arrowText.text = "Arrows: " + arrowAmt;
         grenadeText.text = "Grenades: " + grenadeAmt;
+        if(health < 0)
+        {
+            health = 0;
+        }
+        healthText.text = "Health: " + health + "/" + maxHealth;
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -576,7 +591,11 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.collider.tag == "bozu")
         {
-            Die();
+            health -= 50f;
+            if(health > 0)
+            {
+                Destroy(collision.collider.gameObject);
+            }
         }
         if (collision.collider.tag == "note")
         {
