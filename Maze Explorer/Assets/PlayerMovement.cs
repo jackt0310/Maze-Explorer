@@ -101,6 +101,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject playerUI;
 
+    public int arrowAmt;
+    public int grenadeAmt;
+
+    public Text arrowText;
+    public Text grenadeText;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -130,6 +136,11 @@ public class PlayerMovement : MonoBehaviour
         }
         
         songsUnlocked = InventoryManagement.SongsUnlocked;
+
+        arrowAmt = InventoryManagement.ArrowAmt;
+        grenadeAmt = InventoryManagement.GrenadeAmt;
+
+
         musicAudio = new AudioSource[] {
             music_0,
             music_1,
@@ -431,6 +442,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        arrowText.text = "Arrows: " + arrowAmt;
+        grenadeText.text = "Grenades: " + grenadeAmt;
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if(gamePaused)
@@ -444,11 +458,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(!gamePaused)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && grenadeAmt > 0)
             {
                 GameObject projectile = Instantiate(grenade, transform.position + new Vector3(0f, 3f, 0f) + transform.forward * 5f, transform.rotation);
                 projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
-
+                if (!InventoryManagement.Difficulty.Equals("Easy"))
+                {
+                    grenadeAmt--;
+                }
             }
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -478,7 +495,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Mouse1) && canFire)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && canFire && arrowAmt > 0)
             {
                 canFire = false;
                 bowAnimate.SetTrigger("Draw");
@@ -492,6 +509,10 @@ public class PlayerMovement : MonoBehaviour
                 bowAnimate.SetTrigger("Fire");
                 Invoke("FireArrow", .2f);
                 drawn = false;
+                if(!InventoryManagement.Difficulty.Equals("Easy"))
+                {
+                    arrowAmt--;
+                }
             }
 
             if (musicTextDisableTime > 0f)
@@ -579,6 +600,8 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.CurrentLevel = InventoryManagement.CurrentLevel + 1;
                 InventoryManagement.UnlockedMusic = unlockedMusic;
                 InventoryManagement.SongsUnlocked = songsUnlocked;
+                InventoryManagement.ArrowAmt = arrowAmt;
+                InventoryManagement.GrenadeAmt = grenadeAmt;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             } else
             {

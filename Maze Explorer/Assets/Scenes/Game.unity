@@ -377,6 +377,85 @@ Transform:
   m_Father: {fileID: 963194228}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &33105529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33105530}
+  - component: {fileID: 33105532}
+  - component: {fileID: 33105531}
+  m_Layer: 5
+  m_Name: GrenadeText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &33105530
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33105529}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1525254889}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -109.3, y: -232.673}
+  m_SizeDelta: {x: 218.64276, y: 45.673187}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &33105531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33105529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: dcd0971e6d1d46e4087c7542946d3ab4, type: 3}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 4
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Grenades: ??'
+--- !u!222 &33105532
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33105529}
+  m_CullTransparentMesh: 0
 --- !u!1 &137501003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,22 +1149,22 @@ MonoBehaviour:
 
     Move + Left Click - moving sword attack
 
-    Hold right click -
-    draw bow
+    Hold right click - draw
+    bow
 
     Release right click - fire bow
 
     E - forward roll
 
-    F
-    - Holy Hand Grenade
+    F - Holy Hand
+    Grenade
 
     G - Self-destruct
 
     R - Restart level (when dead)
 
-    Q
-    - Change hymn (when more than one hymn unlocked)'
+    Q - Change
+    hymn (when more than one hymn unlocked)'
 --- !u!222 &459157464
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2426,6 +2505,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764164693}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &774107692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 774107693}
+  - component: {fileID: 774107695}
+  - component: {fileID: 774107694}
+  m_Layer: 5
+  m_Name: ArrowsText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &774107693
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774107692}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1525254889}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -109.31, y: -187}
+  m_SizeDelta: {x: 218.6195, y: 45.673187}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &774107694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774107692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: dcd0971e6d1d46e4087c7542946d3ab4, type: 3}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 4
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Arrows: ??'
+--- !u!222 &774107695
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774107692}
+  m_CullTransparentMesh: 0
 --- !u!1 &777395112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,7 +3551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001621076
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5564,6 +5722,10 @@ MonoBehaviour:
   gamePaused: 0
   pauseMenu: {fileID: 1880959132}
   playerUI: {fileID: 1525254888}
+  arrowAmt: 0
+  grenadeAmt: 0
+  arrowText: {fileID: 774107694}
+  grenadeText: {fileID: 33105531}
 --- !u!54 &1475854110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5873,6 +6035,8 @@ RectTransform:
   - {fileID: 1060959509}
   - {fileID: 784284429}
   - {fileID: 147898973}
+  - {fileID: 774107693}
+  - {fileID: 33105530}
   m_Father: {fileID: 1395466492}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6048,6 +6212,10 @@ MonoBehaviour:
   bozuWander: 0
   bozuAmt: 0
   noteAmt: 0
+  bozuSpeed: 6
+  bozuSpeedMult: 1.2
+  bozuSpawnMult: 1.2
+  title: 0
 --- !u!1 &1569031689
 GameObject:
   m_ObjectHideFlags: 0
@@ -7145,7 +7313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1880959133
 RectTransform:
   m_ObjectHideFlags: 0
