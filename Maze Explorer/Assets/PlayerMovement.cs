@@ -627,6 +627,12 @@ public class PlayerMovement : MonoBehaviour
             maxHealth += 50;
             health = maxHealth;
         }
+
+        if (collision.collider.tag == "food")
+        {
+            Destroy(collision.collider.gameObject);
+            health = maxHealth;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

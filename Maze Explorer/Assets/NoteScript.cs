@@ -5,6 +5,7 @@ using UnityEngine;
 public class NoteScript : MonoBehaviour
 {
     public bool note = true;
+    public bool chicken = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,9 @@ public class NoteScript : MonoBehaviour
         if(note)
         {
             transform.Rotate(0, 50 * Time.deltaTime, 0);
+        } else if(chicken)
+        {
+            transform.Rotate(50 * Time.deltaTime, 0, 0);
         } else
         {
             transform.Rotate(0, 0, 50 * Time.deltaTime);

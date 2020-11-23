@@ -2426,6 +2426,7 @@ MonoBehaviour:
   arrows: {fileID: 1782979678834590295, guid: bd8e22ab5dbf9cd48899bc46201c3b3d, type: 3}
   grenades: {fileID: 3048826778004055538, guid: 1bbc261dc0ebe0447afef60643469c61, type: 3}
   grail: {fileID: 1517698876831797680, guid: f67de896781675d4abcd70635da34094, type: 3}
+  food: {fileID: 4698243470954426740, guid: 409feddb0a230c0459d578be4c3ef713, type: 3}
   spawnRateNote: 10
   spawnRateBozu: 10
   initSpawnNote: 5

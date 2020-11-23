@@ -17,6 +17,7 @@ public class GameControl : MonoBehaviour
     public GameObject arrows;
     public GameObject grenades;
     public GameObject grail;
+    public GameObject food;
 
     PlayerMovement playerMove;
 
@@ -99,6 +100,7 @@ public class GameControl : MonoBehaviour
         SpawnArrows();
         SpawnGrenades();
         SpawnGrail();
+        SpawnFood();
         InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
         InvokeRepeating("SpawnBozu", spawnRateBozu, spawnRateBozu);
     }
@@ -224,6 +226,32 @@ public class GameControl : MonoBehaviour
         }
     }
 
+
+    void SpawnFood()
+    {
+        float spawnX = Random.Range(minX, maxX);
+        float spawnZ = Random.Range(minZ, maxZ);
+        float spawnY = yCoord;
+
+        Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+        RaycastHit hit;
+        bool wallCollide = false;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.tag.Equals("wall"))
+            {
+                wallCollide = true;
+                SpawnFood();
+            }
+        }
+
+        if (!wallCollide)
+        {
+            GameObject foodSpawn = Instantiate(food, new Vector3(spawnX, spawnY + 3f, spawnZ), Quaternion.identity);
+            foodSpawn.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+        }
+    }
 
     void SpawnGrail()
     {
