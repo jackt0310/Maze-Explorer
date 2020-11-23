@@ -16,14 +16,11 @@ public class GhostScript : MonoBehaviour
 
     public bool moving = false;
     public GameControl control;
+    public bool goStart = false;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
-    {
-        StartStuff();
-    }
-
-    public void StartStuff()
     {
         control = GameObject.Find("/Plane").GetComponent<GameControl>();
         if (!wander)
@@ -34,8 +31,16 @@ public class GhostScript : MonoBehaviour
         else
         {
             plane = GameObject.Find("/Plane").GetComponent<GameControl>();
-        }
+            if (goStart)
+            {
+                Go();
+            }
 
+            if(GetComponent<Animator>())
+            {
+                animator = GetComponent<Animator>();
+            }
+        }
     }
     public void Go()
     {
@@ -44,7 +49,7 @@ public class GhostScript : MonoBehaviour
             float spawnX = Random.Range(plane.minX, plane.maxX);
             float spawnZ = Random.Range(plane.minZ, plane.maxZ);
             nextPoint = new Vector3(spawnX, yCoord, spawnZ);
-            transform.LookAt(nextPoint);
+            
             moving = true;
         }
         
@@ -64,6 +69,11 @@ public class GhostScript : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
         }
 
+        if(animator != null)
+        {
+            animator.SetBool("isWalking", moving);
+        }
+
         if(wander)
         {
            
@@ -74,6 +84,7 @@ public class GhostScript : MonoBehaviour
             }
             if (moving)
             {
+                transform.LookAt(nextPoint);
                 transform.position = Vector3.MoveTowards(transform.position, nextPoint, moveSpeed * Time.deltaTime);
             }
         }

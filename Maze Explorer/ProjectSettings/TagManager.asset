@@ -10,6 +10,8 @@ TagManager:
   - attack
   - end
   - wall
+  - arrows
+  - grenades
   layers:
   - Default
   - TransparentFX

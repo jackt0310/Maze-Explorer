@@ -604,7 +604,18 @@ public class PlayerMovement : MonoBehaviour
             changeSong(unlockNext());
             checkIfDoneMusic();
         }
-        
+
+        if (collision.collider.tag == "arrows")
+        {
+            Destroy(collision.collider.gameObject);
+            arrowAmt += 15;
+        }
+
+        if(collision.collider.tag == "grenades")
+        {
+            Destroy(collision.collider.gameObject);
+            grenadeAmt += 3;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

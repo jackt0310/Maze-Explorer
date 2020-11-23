@@ -2423,6 +2423,8 @@ MonoBehaviour:
   bozu: {fileID: 8682723350116428689, guid: e1aa0f71ef549d34983fd5b5be0688dc, type: 3}
   key: {fileID: 8771997308406452945, guid: b08f14d39bbb6d84e9efaca46f4d9225, type: 3}
   player: {fileID: 0}
+  arrows: {fileID: 1782979678834590295, guid: bd8e22ab5dbf9cd48899bc46201c3b3d, type: 3}
+  grenades: {fileID: 3048826778004055538, guid: 1bbc261dc0ebe0447afef60643469c61, type: 3}
   spawnRateNote: 10
   spawnRateBozu: 10
   initSpawnNote: 5
