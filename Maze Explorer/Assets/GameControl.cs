@@ -16,6 +16,7 @@ public class GameControl : MonoBehaviour
     public GameObject player;
     public GameObject arrows;
     public GameObject grenades;
+    public GameObject grail;
 
     PlayerMovement playerMove;
 
@@ -37,6 +38,8 @@ public class GameControl : MonoBehaviour
     public float bozuSpeedMult = 1.2f;
     public float bozuSpawnMult = 1.2f;
     public bool title = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +98,7 @@ public class GameControl : MonoBehaviour
         SpawnKey();
         SpawnArrows();
         SpawnGrenades();
+        SpawnGrail();
         InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
         InvokeRepeating("SpawnBozu", spawnRateBozu, spawnRateBozu);
     }
@@ -217,6 +221,32 @@ public class GameControl : MonoBehaviour
         {
             GameObject arrowSpawn = Instantiate(arrows, new Vector3(spawnX, spawnY + 5f, spawnZ), Quaternion.identity);
             arrowSpawn.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+    }
+
+
+    void SpawnGrail()
+    {
+        float spawnX = Random.Range(minX, maxX);
+        float spawnZ = Random.Range(minZ, maxZ);
+        float spawnY = yCoord;
+
+        Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+        RaycastHit hit;
+        bool wallCollide = false;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.tag.Equals("wall"))
+            {
+                wallCollide = true;
+                SpawnGrail();
+            }
+        }
+
+        if (!wallCollide)
+        {
+            Instantiate(grail, new Vector3(spawnX, spawnY + 3f, spawnZ), Quaternion.identity);
         }
     }
 

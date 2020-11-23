@@ -123,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         walk.Play();
         walk.Pause();
+        if(InventoryManagement.MaxHealth > 0)
+        {
+            maxHealth = InventoryManagement.MaxHealth;
+        }
         health = maxHealth;
 
         if(InventoryManagement.UnlockedMusic == null)
@@ -616,6 +620,13 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.collider.gameObject);
             grenadeAmt += 3;
         }
+
+        if (collision.collider.tag == "grail")
+        {
+            Destroy(collision.collider.gameObject);
+            maxHealth += 50;
+            health = maxHealth;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -632,6 +643,7 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.SongsUnlocked = songsUnlocked;
                 InventoryManagement.ArrowAmt = arrowAmt;
                 InventoryManagement.GrenadeAmt = grenadeAmt;
+                InventoryManagement.MaxHealth = maxHealth;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             } else
             {

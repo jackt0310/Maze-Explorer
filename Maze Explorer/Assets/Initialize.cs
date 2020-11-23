@@ -27,5 +27,6 @@ public class Initialize : MonoBehaviour
         InventoryManagement.UnlockedMusic = unlockedMusic;
         InventoryManagement.CurrentLevel = 1;
         InventoryManagement.SongsUnlocked = 1;
+        InventoryManagement.MaxHealth = 100f;
     }
 }

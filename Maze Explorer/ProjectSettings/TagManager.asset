@@ -12,6 +12,7 @@ TagManager:
   - wall
   - arrows
   - grenades
+  - grail
   layers:
   - Default
   - TransparentFX
