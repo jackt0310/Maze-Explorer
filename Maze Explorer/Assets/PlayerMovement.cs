@@ -459,8 +459,30 @@ public class PlayerMovement : MonoBehaviour
             dying = true;
             Die();
         }
-        arrowText.text = "Arrows: " + arrowAmt;
-        grenadeText.text = "Grenades: " + grenadeAmt;
+
+        string remainingArrows = "/??";
+        string remainingGrenades = "/??";
+
+        switch (InventoryManagement.Difficulty) {
+            case "Easy":
+                remainingArrows = "/999";
+                remainingGrenades = "/999";
+                break;
+            case "Medium":
+                remainingArrows = "/" + InventoryManagement.MaxArrows * 2;
+                remainingGrenades = "/" + InventoryManagement.MaxGrenades * 2;
+                break;
+            case "Hard":
+                remainingArrows = "/" + InventoryManagement.MaxArrows;
+                remainingGrenades = "/" + InventoryManagement.MaxGrenades;
+                break;
+            default:
+                break;
+        }
+
+
+        arrowText.text = "Arrows: " + arrowAmt + remainingArrows;
+        grenadeText.text = "Grenades: " + grenadeAmt + remainingGrenades;
         goldText.text = "Gold: " + gold;
         if (health < 0)
         {
@@ -616,13 +638,52 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.tag == "arrows")
         {
             Destroy(collision.collider.gameObject);
-            arrowAmt += 15;
+
+            switch (InventoryManagement.Difficulty) {
+                case "Medium":
+                    arrowAmt += 15;
+                    if(arrowAmt > InventoryManagement.MaxArrows * 2)
+                    {
+                        arrowAmt = InventoryManagement.MaxArrows * 2;
+                    }
+                    break;
+                case "Hard":
+                    arrowAmt += 15;
+                    if (arrowAmt > InventoryManagement.MaxArrows)
+                    {
+                        arrowAmt = InventoryManagement.MaxArrows;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            
         }
 
         if(collision.collider.tag == "grenades")
         {
             Destroy(collision.collider.gameObject);
-            grenadeAmt += 3;
+
+            switch (InventoryManagement.Difficulty)
+            {
+                case "Medium":
+                    grenadeAmt += 3;
+                    if (grenadeAmt > InventoryManagement.MaxGrenades * 2)
+                    {
+                        grenadeAmt = InventoryManagement.MaxGrenades * 2;
+                    }
+                    break;
+                case "Hard":
+                    grenadeAmt += 3;
+                    if (grenadeAmt > InventoryManagement.MaxGrenades)
+                    {
+                        grenadeAmt = InventoryManagement.MaxGrenades;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (collision.collider.tag == "grail")

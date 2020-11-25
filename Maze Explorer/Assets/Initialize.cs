@@ -40,6 +40,16 @@ public class Initialize : MonoBehaviour
             InventoryManagement.SongsUnlocked = 1;
         }
 
+        if(InventoryManagement.MaxArrows == 0)
+        {
+            InventoryManagement.MaxArrows = 15;
+        }
+
+        if(InventoryManagement.MaxGrenades == 0)
+        {
+            InventoryManagement.MaxGrenades = 3;
+        }
+
         InventoryManagement.CurrentLevel = 1;
     }
 }

@@ -19,16 +19,16 @@ public class MenuOptions : MonoBehaviour
     public void StartHard()
     {
         InventoryManagement.Difficulty = "Hard";
-        InventoryManagement.GrenadeAmt = 3;
-        InventoryManagement.ArrowAmt = 15;
+        InventoryManagement.GrenadeAmt = InventoryManagement.MaxGrenades;
+        InventoryManagement.ArrowAmt = InventoryManagement.MaxArrows;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void StartMedium()
     {
         InventoryManagement.Difficulty = "Medium";
-        InventoryManagement.GrenadeAmt = 6;
-        InventoryManagement.ArrowAmt = 30;
+        InventoryManagement.GrenadeAmt = InventoryManagement.MaxGrenades * 2;
+        InventoryManagement.ArrowAmt = InventoryManagement.MaxArrows * 2;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

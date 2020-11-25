@@ -21,6 +21,38 @@ public class ShopScript : MonoBehaviour
             playerMove.checkIfDoneMusic();
         }
     }
+
+    public void ArrowUpgrade()
+    {
+        if(playerMove.gold >= 1000)
+        {
+            playerMove.gold -= 1000;
+            InventoryManagement.GoldAmt = playerMove.gold;
+            InventoryManagement.MaxArrows = InventoryManagement.MaxArrows + 15;
+        }
+    }
+
+    public void GrenadeUpgrade()
+    {
+        if (playerMove.gold >= 1000)
+        {
+            playerMove.gold -= 1000;
+            InventoryManagement.GoldAmt = playerMove.gold;
+            InventoryManagement.MaxGrenades = InventoryManagement.MaxGrenades + 3;
+        }
+    }
+
+    public void HealthUpgrade()
+    {
+        if (playerMove.gold >= 5000)
+        {
+            playerMove.gold -= 5000;
+            InventoryManagement.GoldAmt = playerMove.gold;
+            playerMove.maxHealth += 50;
+            playerMove.health = playerMove.maxHealth;
+            InventoryManagement.MaxHealth = playerMove.maxHealth;
+        }
+    }
     // Update is called once per frame
     void Update()
     {

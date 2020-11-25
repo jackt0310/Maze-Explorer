@@ -13,6 +13,9 @@ public static class InventoryManagement
     private static float maxHealth;
     private static int goldAmt;
 
+    private static int maxGrenades;
+    private static int maxArrows;
+
     public static bool[] UnlockedMusic
     {
         get
@@ -106,6 +109,30 @@ public static class InventoryManagement
         set
         {
             goldAmt = value;
+        }
+    }
+
+    public static int MaxArrows
+    {
+        get
+        {
+            return maxArrows;
+        }
+        set
+        {
+            maxArrows = value;
+        }
+    }
+
+    public static int MaxGrenades
+    {
+        get
+        {
+            return maxGrenades;
+        }
+        set
+        {
+            maxGrenades = value;
         }
     }
 }
