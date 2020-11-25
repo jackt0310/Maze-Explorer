@@ -18,6 +18,7 @@ public class GameControl : MonoBehaviour
     public GameObject grenades;
     public GameObject grail;
     public GameObject food;
+    public GameObject skele;
 
     PlayerMovement playerMove;
 
@@ -25,6 +26,10 @@ public class GameControl : MonoBehaviour
     public float spawnRateBozu;
     public int initSpawnNote;
     public int initSpawnBozu;
+    public float spawnRateSkele;
+    public int initSpawnSkele;
+    public int skeleAmt;
+    public int maxSkeleAmt;
 
     public int maxNoteAmt;
     public int noteCount;
@@ -39,7 +44,7 @@ public class GameControl : MonoBehaviour
     public float bozuSpeedMult = 1.2f;
     public float bozuSpawnMult = 1.2f;
     public bool title = false;
-
+    public bool arena = false;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +80,7 @@ public class GameControl : MonoBehaviour
         }
         noteAmt = 0;
         bozuAmt = 0;
+        skeleAmt = 0;
 
         if(player != null)
         {
@@ -96,6 +102,7 @@ public class GameControl : MonoBehaviour
     {
         SpawnNoteAmt(initSpawnNote);
         SpawnBozuAmt(initSpawnBozu);
+        
         SpawnKey();
         SpawnArrows();
         SpawnGrenades();
@@ -103,12 +110,27 @@ public class GameControl : MonoBehaviour
         SpawnFood();
         InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
         InvokeRepeating("SpawnBozu", spawnRateBozu, spawnRateBozu);
+
+        if(arena)
+        {
+            SpawnSkeleAmt(initSpawnSkele);
+            InvokeRepeating("SpawnSkele", spawnRateSkele, spawnRateSkele);
+        }
+       
     }
     void SpawnNoteAmt(int amt)
     {
         for(int i = 0; i < amt; i++)
         {
             SpawnNote();
+        }
+    }
+
+    void SpawnSkeleAmt(int amt)
+    {
+        for (int i = 0; i < amt; i++)
+        {
+            SpawnSkele();
         }
     }
 
@@ -199,6 +221,48 @@ public class GameControl : MonoBehaviour
             }
         }
     }
+
+    void SpawnSkele()
+    {
+
+        if (skeleAmt < maxSkeleAmt)
+        {
+            float spawnX = Random.Range(minX, maxX);
+            float spawnZ = Random.Range(minZ, maxZ);
+            float spawnY = yCoord;
+
+
+            Ray ray = new Ray(new Vector3(spawnX, 100f, spawnZ), Vector3.down);
+            RaycastHit hit;
+
+            bool wallCollide = false;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag.Equals("wall"))
+                {
+                    wallCollide = true;
+                    SpawnSkele();
+                }
+            }
+
+            Vector3 spawnLoc = new Vector3(spawnX, spawnY, spawnZ);
+            if (!wallCollide && (player == null || Vector3.Distance(spawnLoc, player.transform.position) > 40f))
+            {
+                Instantiate(skele, spawnLoc, Quaternion.identity);
+
+                skeleAmt++;
+            }
+            else
+            {
+                // if (player != null)
+                {
+                    SpawnSkele();
+                }
+            }
+        }
+    }
+
 
     void SpawnArrows()
     {

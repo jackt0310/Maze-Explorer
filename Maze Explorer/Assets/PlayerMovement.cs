@@ -656,6 +656,10 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.CurrentLevel = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
+        } else if(other.tag == "enemyAttack")
+        {
+            health -= 50f;
+            Debug.Log("Ouch");
         }
     }
     private void OnTriggerExit(Collider other)
