@@ -112,6 +112,8 @@ public class PlayerMovement : MonoBehaviour
     public Text healthText;
     public bool dying = false;
 
+    public int gold = 0;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -128,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             maxHealth = InventoryManagement.MaxHealth;
         }
         health = maxHealth;
-
+        gold = InventoryManagement.GoldAmt;
         if(InventoryManagement.UnlockedMusic == null)
         {
             int musicAmt = 25;
@@ -633,6 +635,12 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.collider.gameObject);
             health = maxHealth;
         }
+
+        if(collision.collider.tag == "gold")
+        {
+            Destroy(collision.collider.gameObject);
+            gold += 10;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -650,6 +658,7 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.ArrowAmt = arrowAmt;
                 InventoryManagement.GrenadeAmt = grenadeAmt;
                 InventoryManagement.MaxHealth = maxHealth;
+                InventoryManagement.GoldAmt = gold;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             } else
             {

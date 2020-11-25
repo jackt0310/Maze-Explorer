@@ -15,6 +15,7 @@ TagManager:
   - grail
   - food
   - enemyAttack
+  - gold
   layers:
   - Default
   - TransparentFX
