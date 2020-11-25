@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource swordNoise;
     public bool attacking = false;
     public bool unlockedAll = false;
-    int songsUnlocked;
+    public int songsUnlocked;
 
     public bool rolling = false;
     public Animator bowAnimate;
@@ -113,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
     public bool dying = false;
 
     public int gold = 0;
+    public Text goldText;
 
     void Start()
     {
@@ -219,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
         
         KeyCollectedText.text = "Key: 0/1";
         levelText.text = "Level " + InventoryManagement.CurrentLevel;
-        
+        goldText = GameObject.Find("/Canvas/PlayerUI/GoldText").GetComponent<Text>();
     }
     
     public void Resume()
@@ -238,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
         gamePaused = true;
     }
 
-    void changeSong(int song)
+    public void changeSong(int song)
     {
         if (song == -1)
         {
@@ -460,7 +461,8 @@ public class PlayerMovement : MonoBehaviour
         }
         arrowText.text = "Arrows: " + arrowAmt;
         grenadeText.text = "Grenades: " + grenadeAmt;
-        if(health < 0)
+        goldText.text = "Gold: " + gold;
+        if (health < 0)
         {
             health = 0;
         }
@@ -658,10 +660,15 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.ArrowAmt = arrowAmt;
                 InventoryManagement.GrenadeAmt = grenadeAmt;
                 InventoryManagement.MaxHealth = maxHealth;
+                gold += 500;
                 InventoryManagement.GoldAmt = gold;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             } else
             {
+                gold += 1000;
+                InventoryManagement.GoldAmt = gold;
+                InventoryManagement.UnlockedMusic = unlockedMusic;
+                InventoryManagement.SongsUnlocked = songsUnlocked;
                 InventoryManagement.CurrentLevel = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
@@ -679,7 +686,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void checkIfDoneMusic()
+    public void checkIfDoneMusic()
     {
         if(songsUnlocked >= unlockedMusic.Length)
         {
@@ -712,6 +719,36 @@ public class PlayerMovement : MonoBehaviour
                 unlockedMusic[song] = true;
                 songsUnlocked++;
                 HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
+                return song;
+            }
+            song++;
+        }
+        return -1;
+    }
+
+
+    public int unlockNextSave()
+    {
+        int song = Random.Range(1, unlockedMusic.Length);
+        if (!unlockedMusic[song])
+        {
+            unlockedMusic[song] = true;
+            songsUnlocked++;
+            HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
+            InventoryManagement.UnlockedMusic = unlockedMusic;
+            InventoryManagement.SongsUnlocked = songsUnlocked;
+            return song;
+        }
+        song = 0;
+        while (song < unlockedMusic.Length)
+        {
+            if (!unlockedMusic[song])
+            {
+                unlockedMusic[song] = true;
+                songsUnlocked++;
+                HymnsCollectedText.text = "Hymns: " + songsUnlocked + "/" + unlockedMusic.Length;
+                InventoryManagement.UnlockedMusic = unlockedMusic;
+                InventoryManagement.SongsUnlocked = songsUnlocked;
                 return song;
             }
             song++;

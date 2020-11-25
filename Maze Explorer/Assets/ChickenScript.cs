@@ -10,6 +10,8 @@ public class ChickenScript : MonoBehaviour
     public Sprite talkSprite;
     public string text;
 
+    public GameObject shopMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +26,19 @@ public class ChickenScript : MonoBehaviour
         if (Vector3.Distance(player.transform.position, transform.position) < 8f)
         {
             dots.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.C) && !dialogue.open)
+            if (Input.GetKeyDown(KeyCode.C) && !dialogue.open && dialogue.timeSinceLast > .1f)
             {
-                dialogue.OpenDialogue(talkSprite, text);
+                shopMenu.SetActive(true);
+                dialogue.OpenDialogue(talkSprite, text, gameObject);
             }
         } else
         {
             dots.SetActive(false);
         }
+    }
+
+    public void Close()
+    {
+        shopMenu.SetActive(false);
     }
 }

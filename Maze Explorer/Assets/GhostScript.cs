@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GhostScript : MonoBehaviour
@@ -19,9 +20,13 @@ public class GhostScript : MonoBehaviour
     public bool goStart = false;
     public Animator animator;
 
+    public GameObject gold;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        gold = Resources.Load<GameObject>("Gold");
         control = GameObject.Find("/Plane").GetComponent<GameControl>();
         if (!wander)
         {
@@ -93,6 +98,8 @@ public class GhostScript : MonoBehaviour
 
     public void Die()
     {
+        GameObject goldSpawn= Instantiate(gold, transform.position, transform.rotation);
+        goldSpawn.transform.Rotate(-90f, 0f, 0f);
         control.bozuAmt--;
         ghostDeath.Play();
         Destroy(gameObject);

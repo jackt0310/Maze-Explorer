@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arena.unity
     guid: 94c3d9dadd5c1a543ace50c52a186302
+  - enabled: 1
+    path: Assets/Scenes/Tavern.unity
+    guid: f81ec926c44ef5b418f2a22ccf8f6521
   m_configObjects: {}

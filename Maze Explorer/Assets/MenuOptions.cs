@@ -55,6 +55,11 @@ public class MenuOptions : MonoBehaviour
         SceneManager.LoadScene("Arena");
     }
 
+    public void Tavern()
+    {
+        SceneManager.LoadScene("Tavern");
+    }
+
     public void ExitGame()
     {
         Application.Quit();

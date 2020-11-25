@@ -16,17 +16,30 @@ public class Initialize : MonoBehaviour
         difficultyMenu = canvas.transform.Find("DifficultyMenu").gameObject;
         difficultyMenu.SetActive(false);
         int musicAmt = 25;
-        bool[] unlockedMusic = new bool[musicAmt];
-        unlockedMusic[0] = true;
 
-        for (int i = 1; i < musicAmt; i++)
+        if(InventoryManagement.UnlockedMusic == null)
         {
-            unlockedMusic[i] = false;
+            bool[] unlockedMusic = new bool[musicAmt];
+            unlockedMusic[0] = true;
+
+            for (int i = 1; i < musicAmt; i++)
+            {
+                unlockedMusic[i] = false;
+            }
+
+            InventoryManagement.UnlockedMusic = unlockedMusic;
+        }
+        
+        if(InventoryManagement.MaxHealth == 0)
+        {
+            InventoryManagement.MaxHealth = 100f;
         }
 
-        InventoryManagement.UnlockedMusic = unlockedMusic;
+        if(InventoryManagement.SongsUnlocked == 0)
+        {
+            InventoryManagement.SongsUnlocked = 1;
+        }
+
         InventoryManagement.CurrentLevel = 1;
-        InventoryManagement.SongsUnlocked = 1;
-        InventoryManagement.MaxHealth = 100f;
     }
 }

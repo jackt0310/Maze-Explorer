@@ -10,6 +10,8 @@ public class DialogueScript : MonoBehaviour
     public Text diaText;
     public bool open;
     public bool canMoveOn = false;
+    public float timeSinceLast = 0f;
+    public GameObject diaCaller;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +23,9 @@ public class DialogueScript : MonoBehaviour
     }
 
 
-    public void OpenDialogue(Sprite picture, string text)
+    public void OpenDialogue(Sprite picture, string text, GameObject caller)
     {
+        diaCaller = caller;
         diaPanel.SetActive(true);
         diaPortrait.sprite = picture;
         diaText.text = text;
@@ -37,6 +40,8 @@ public class DialogueScript : MonoBehaviour
 
     public void CloseDialogue()
     {
+        diaCaller.GetComponent<ChickenScript>().Close();
+        timeSinceLast = 0f;
         diaPanel.SetActive(false);
         open = false;
         canMoveOn = false;
@@ -45,8 +50,10 @@ public class DialogueScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceLast += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.C) && open && canMoveOn)
         {
+            Debug.Log("Close");
             CloseDialogue();
         }
     }
