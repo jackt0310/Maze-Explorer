@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: 1
+  chicken: 0
 --- !u!65 &2259691060789209986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76,7 +77,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1859593879861414932
 Transform:
   m_ObjectHideFlags: 0

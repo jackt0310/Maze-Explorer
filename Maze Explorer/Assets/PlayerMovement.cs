@@ -115,6 +115,9 @@ public class PlayerMovement : MonoBehaviour
     public int gold = 0;
     public Text goldText;
 
+    public int maxArrows;
+    public int maxGrenades;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -132,6 +135,10 @@ public class PlayerMovement : MonoBehaviour
         }
         health = maxHealth;
         gold = InventoryManagement.GoldAmt;
+
+        maxArrows = InventoryManagement.MaxArrows;
+        maxGrenades = InventoryManagement.MaxGrenades;
+
         if(InventoryManagement.UnlockedMusic == null)
         {
             int musicAmt = 25;
@@ -469,12 +476,12 @@ public class PlayerMovement : MonoBehaviour
                 remainingGrenades = "/999";
                 break;
             case "Medium":
-                remainingArrows = "/" + InventoryManagement.MaxArrows * 2;
-                remainingGrenades = "/" + InventoryManagement.MaxGrenades * 2;
+                remainingArrows = "/" + maxArrows * 2;
+                remainingGrenades = "/" + maxGrenades * 2;
                 break;
             case "Hard":
-                remainingArrows = "/" + InventoryManagement.MaxArrows;
-                remainingGrenades = "/" + InventoryManagement.MaxGrenades;
+                remainingArrows = "/" + maxArrows;
+                remainingGrenades = "/" + maxGrenades;
                 break;
             default:
                 break;
@@ -642,16 +649,16 @@ public class PlayerMovement : MonoBehaviour
             switch (InventoryManagement.Difficulty) {
                 case "Medium":
                     arrowAmt += 15;
-                    if(arrowAmt > InventoryManagement.MaxArrows * 2)
+                    if(arrowAmt > maxArrows * 2)
                     {
-                        arrowAmt = InventoryManagement.MaxArrows * 2;
+                        arrowAmt = maxArrows * 2;
                     }
                     break;
                 case "Hard":
                     arrowAmt += 15;
-                    if (arrowAmt > InventoryManagement.MaxArrows)
+                    if (arrowAmt > maxArrows)
                     {
-                        arrowAmt = InventoryManagement.MaxArrows;
+                        arrowAmt = maxArrows;
                     }
                     break;
                 default:
@@ -669,16 +676,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 case "Medium":
                     grenadeAmt += 3;
-                    if (grenadeAmt > InventoryManagement.MaxGrenades * 2)
+                    if (grenadeAmt > maxGrenades * 2)
                     {
-                        grenadeAmt = InventoryManagement.MaxGrenades * 2;
+                        grenadeAmt = maxGrenades * 2;
                     }
                     break;
                 case "Hard":
                     grenadeAmt += 3;
-                    if (grenadeAmt > InventoryManagement.MaxGrenades)
+                    if (grenadeAmt > maxGrenades)
                     {
-                        grenadeAmt = InventoryManagement.MaxGrenades;
+                        grenadeAmt = maxGrenades;
                     }
                     break;
                 default:
@@ -701,8 +708,22 @@ public class PlayerMovement : MonoBehaviour
 
         if(collision.collider.tag == "gold")
         {
+            
+            gold += collision.collider.gameObject.GetComponent<GoldScript>().value;
             Destroy(collision.collider.gameObject);
-            gold += 10;
+        }
+
+        if(collision.collider.tag == "arrowUp")
+        {
+            Destroy(collision.collider.gameObject);
+            maxArrows += 15;
+
+        }
+
+        if(collision.collider.tag == "grenadeUp")
+        {
+            Destroy(collision.collider.gameObject);
+            maxGrenades += 3;
         }
     }
 
@@ -721,6 +742,8 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.ArrowAmt = arrowAmt;
                 InventoryManagement.GrenadeAmt = grenadeAmt;
                 InventoryManagement.MaxHealth = maxHealth;
+                InventoryManagement.MaxArrows = maxArrows;
+                InventoryManagement.MaxGrenades = maxGrenades;
                 gold += 500;
                 InventoryManagement.GoldAmt = gold;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

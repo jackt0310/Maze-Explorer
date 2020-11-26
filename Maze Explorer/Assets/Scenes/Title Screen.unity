@@ -1650,7 +1650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6885519477474139149, guid: b3a9446397c226e49b21e9e45fd32e1e, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6885519477474139149, guid: b3a9446397c226e49b21e9e45fd32e1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1745,7 +1745,7 @@ Transform:
   m_Children:
   - {fileID: 517991047}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1064625250
 GameObject:
@@ -2184,7 +2184,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1386572009
 PrefabInstance:
@@ -2358,7 +2358,7 @@ RectTransform:
   - {fileID: 2046647716}
   - {fileID: 2053034148}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2552,7 +2552,7 @@ Transform:
   m_LocalScale: {x: 21, y: 20, z: 21}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1551201490
 MonoBehaviour:
@@ -2600,6 +2600,8 @@ MonoBehaviour:
   bozuSpawnMult: 1.2
   title: 1
   arena: 0
+  chest: {fileID: 8286613792947152301, guid: 2d0ff256cd2ede640a463cc2c14f6228, type: 3}
+  maze: {fileID: 0}
 --- !u!1 &1637734786
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,8 @@ TagManager:
   - food
   - enemyAttack
   - gold
+  - arrowUp
+  - grenadeUp
   layers:
   - Default
   - TransparentFX

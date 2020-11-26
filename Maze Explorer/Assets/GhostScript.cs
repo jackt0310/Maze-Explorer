@@ -21,16 +21,23 @@ public class GhostScript : MonoBehaviour
     public Animator animator;
 
     public GameObject gold;
-
+    public GameObject arrows;
+    public GameObject grenades;
+    public GameObject food;
+    public PlayerMovement playerMove;
 
     // Start is called before the first frame update
     void Start()
     {
-        gold = Resources.Load<GameObject>("Gold");
+        gold = Resources.Load<GameObject>("Gold10");
+        arrows = Resources.Load<GameObject>("ArrowCollect");
+        grenades = Resources.Load<GameObject>("GrenadeCollect");
+        food = Resources.Load<GameObject>("Food");
         control = GameObject.Find("/Plane").GetComponent<GameControl>();
         if (!wander)
         {
             player = GameObject.Find("/knight");
+            playerMove = player.GetComponent<PlayerMovement>();
             ghostDeath = GameObject.Find("Main Camera/GhostDeath").GetComponent<AudioSource>();
         }
         else
@@ -98,8 +105,49 @@ public class GhostScript : MonoBehaviour
 
     public void Die()
     {
-        GameObject goldSpawn= Instantiate(gold, transform.position, transform.rotation);
-        goldSpawn.transform.Rotate(-90f, 0f, 0f);
+        
+
+        float arrowNeed = 0f;
+
+        if (playerMove.arrowAmt < playerMove.maxArrows)
+        {
+            arrowNeed = 8f;
+        }
+
+        float grenadeNeed = 0f;
+
+        if(playerMove.grenadeAmt < playerMove.maxGrenades)
+        {
+            grenadeNeed = 8f;
+        }
+
+        float foodNeed = 0f;
+
+        if(playerMove.health < playerMove.maxHealth)
+        {
+            foodNeed = 8f;
+        }
+
+        float random = Random.Range(0f, 100f);
+
+        if (random > 0f && random < arrowNeed)
+        {
+            GameObject arrowSpawn = Instantiate(arrows, transform.position, transform.rotation);
+            arrowSpawn.transform.Rotate(-90f, 0f, 0f);
+        }
+        else if (random > arrowNeed && random < arrowNeed + grenadeNeed)
+        {
+            Instantiate(grenades, transform.position, transform.rotation);
+        }
+        else if (random > arrowNeed + grenadeNeed && random < arrowNeed + grenadeNeed + foodNeed)
+        {
+            Instantiate(food, transform.position, transform.rotation);
+        } else
+        {
+            GameObject goldSpawn = Instantiate(gold, transform.position, transform.rotation);
+            goldSpawn.transform.Rotate(-90f, 0f, 0f);
+        }
+
         control.bozuAmt--;
         ghostDeath.Play();
         Destroy(gameObject);

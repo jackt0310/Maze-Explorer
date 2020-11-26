@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3043160841031579686}
   - component: {fileID: 3292628118351190901}
   - component: {fileID: 3292628118351190900}
+  - component: {fileID: -214091804214589033}
   m_Layer: 0
-  m_Name: Gold
+  m_Name: Gold50
   m_TagString: gold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,6 +63,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 20, z: 20}
   m_Center: {x: 0, y: 0, z: 10}
+--- !u!114 &-214091804214589033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409612742427189916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02af60bca051d5b41a0b0ea8aa602864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 50
 --- !u!1 &8729006113057199796
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +135,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1984666790337167531, guid: 1380b8aedf50dad48aba15cb74cee782, type: 3}
+  - {fileID: 2100000, guid: 36792185aa0985946baf2694b4a98820, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

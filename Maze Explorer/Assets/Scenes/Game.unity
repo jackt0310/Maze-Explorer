@@ -4314,6 +4314,7 @@ MonoBehaviour:
   swordNoise: {fileID: 418499414}
   attacking: 0
   unlockedAll: 0
+  songsUnlocked: 0
   rolling: 0
   bowAnimate: {fileID: 1683199472}
   bowMesh: {fileID: 6784114364241303080}
@@ -4762,6 +4763,8 @@ MonoBehaviour:
   bozuSpawnMult: 1.2
   title: 0
   arena: 0
+  chest: {fileID: 8286613792947152301, guid: 2d0ff256cd2ede640a463cc2c14f6228, type: 3}
+  maze: {fileID: 0}
 --- !u!1 &1569031689
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,12 +46,16 @@ public class GameControl : MonoBehaviour
     public bool title = false;
     public bool arena = false;
 
+    public GameObject chest;
+    public MazeLoader maze;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(!title)
+        maze = GameObject.Find("/GameManager (Maze Loader Holder)").GetComponent<MazeLoader>();
+        if (!title)
         {
-            switch(InventoryManagement.Difficulty)
+            switch (InventoryManagement.Difficulty)
             {
                 case "Easy":
                     bozuSpeed = 4f;
@@ -74,53 +78,113 @@ public class GameControl : MonoBehaviour
             }
             bozuSpeed += bozuSpeed * ((bozuSpeedMult - 1) * (InventoryManagement.CurrentLevel - 1));
             spawnRateBozu -= spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1));
-            initSpawnBozu += (int) Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
-            maxBozuAmt += (int) Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
-        
+            initSpawnBozu += (int)Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
+            maxBozuAmt += (int)Mathf.Round(spawnRateBozu * ((bozuSpawnMult - 1) * (InventoryManagement.CurrentLevel - 1)));
+
         }
         noteAmt = 0;
         bozuAmt = 0;
         skeleAmt = 0;
 
-        if(player != null)
+        if (player != null)
         {
             playerMove = player.GetComponent<PlayerMovement>();
         }
-        
+
         noteCount = 1;
-        
+
         minX = GetComponent<Collider>().bounds.min.x;
         maxX = GetComponent<Collider>().bounds.max.x;
         minZ = GetComponent<Collider>().bounds.min.z;
         maxZ = GetComponent<Collider>().bounds.max.z;
         yCoord = GetComponent<Collider>().bounds.max.y + 2;
-        
+
         initSpawn();
     }
 
     void initSpawn()
     {
-        SpawnNoteAmt(initSpawnNote);
+        //SpawnNoteAmt(initSpawnNote);
         SpawnBozuAmt(initSpawnBozu);
-        
+
         SpawnKey();
+        /*
         SpawnArrows();
         SpawnGrenades();
         SpawnGrail();
-        SpawnFood();
-        InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
+        SpawnFood();*/
+        SpawnChests();
+        //InvokeRepeating("SpawnNote", spawnRateNote, spawnRateNote);
         InvokeRepeating("SpawnBozu", spawnRateBozu, spawnRateBozu);
 
-        if(arena)
+        if (arena)
         {
             SpawnSkeleAmt(initSpawnSkele);
             InvokeRepeating("SpawnSkele", spawnRateSkele, spawnRateSkele);
         }
-       
+
     }
+
+    void SpawnChests()
+    {
+        float random = Random.Range(0f, 100f);
+
+        int amt = 0;
+
+
+        if (random < 40f)
+        {
+            amt = 2;
+        }
+        else if (random < 70f)
+        {
+            amt = 3;
+        }
+        else if (random < 90f)
+        {
+            amt = 4;
+        }
+        else
+        {
+            amt = 5;
+        }
+
+        for (int i = 0; i < amt; i++)
+        {
+            SpawnChest();
+        }
+    }
+
+    void SpawnChest()
+    {
+        float spawnX = Random.Range(0, maze.mazeRows);
+        float spawnZ = Random.Range(0, maze.mazeColumns);
+
+
+        Ray ray = new Ray(new Vector3(spawnX * maze.size, 100f, spawnZ * maze.size), Vector3.down);
+        RaycastHit hit;
+
+        bool chestCollide = false;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.tag.Equals("chest"))
+            {
+                chestCollide = true;
+                SpawnChest();
+            }
+        }
+
+        if (!chestCollide)
+        {
+            float spawnY = yCoord;
+            Instantiate(chest, new Vector3(spawnX * maze.size, 1f, spawnZ * maze.size), Quaternion.identity);
+        }
+    }
+
     void SpawnNoteAmt(int amt)
     {
-        for(int i = 0; i < amt; i++)
+        for (int i = 0; i < amt; i++)
         {
             SpawnNote();
         }
@@ -154,8 +218,8 @@ public class GameControl : MonoBehaviour
                     SpawnNote();
                 }
             }
-            
-            if(!wallCollide)
+
+            if (!wallCollide)
             {
                 float spawnY = yCoord;
                 Instantiate(note, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
@@ -177,7 +241,7 @@ public class GameControl : MonoBehaviour
     void SpawnBozu()
     {
 
-        if(bozuAmt < maxBozuAmt)
+        if (bozuAmt < maxBozuAmt)
         {
             float spawnX = Random.Range(minX, maxX);
             float spawnZ = Random.Range(minZ, maxZ);
@@ -206,7 +270,7 @@ public class GameControl : MonoBehaviour
                 ghost.moveSpeed = bozuSpeed;
 
                 bozuAmt++;
-                if(bozuWander)
+                if (bozuWander)
                 {
                     ghost.wander = true;
                     ghost.Pause();
@@ -214,7 +278,7 @@ public class GameControl : MonoBehaviour
             }
             else
             {
-               // if (player != null)
+                // if (player != null)
                 {
                     SpawnBozu();
                 }
@@ -391,5 +455,5 @@ public class GameControl : MonoBehaviour
             Instantiate(key, new Vector3(spawnX, spawnY, spawnZ), Quaternion.identity);
         }
     }
-    
+
 }
