@@ -5635,6 +5635,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7626065057782943477, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
   m_PrefabInstance: {fileID: 7626065055904622185}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880959137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880959132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f2df0c40922f84da632704f61c8566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMove: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  controlsInfo: {fileID: 0}
+  canvas: {fileID: 0}
+  controls: 0
 --- !u!1 &1883847021
 GameObject:
   m_ObjectHideFlags: 0
@@ -6764,6 +6781,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6276669663063048985, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056881924945, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: controls
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056923125898, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: controls
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056923125898, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7626065057194690193, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -6851,6 +6884,14 @@ PrefabInstance:
     - target: {fileID: 7626065057194690197, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065057586731240, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065057931503259, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8495201174633875126, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
       propertyPath: m_IsActive
