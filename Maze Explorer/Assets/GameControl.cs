@@ -53,6 +53,7 @@ public class GameControl : MonoBehaviour
     void Start()
     {
         maze = GameObject.Find("/GameManager (Maze Loader Holder)").GetComponent<MazeLoader>();
+
         if (!title)
         {
             switch (InventoryManagement.Difficulty)

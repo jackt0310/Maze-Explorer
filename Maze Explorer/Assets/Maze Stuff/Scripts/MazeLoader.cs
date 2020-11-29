@@ -5,7 +5,7 @@ public class MazeLoader : MonoBehaviour {
 	public int mazeRows, mazeColumns;
 	public GameObject wall;
 	public GameObject floors;
-	public float size;
+	public float size = 22f;
     public bool arenaMode = false;
 
 	private MazeCell[,] mazeCells;
@@ -59,9 +59,9 @@ public class MazeLoader : MonoBehaviour {
 			for (int c = 0; c < mazeColumns; c++) {
 				// create maze cell
 				mazeCells [r, c] = new MazeCell ();
-				// change this depending on the size you want the hallway
-				// make sure floors are big enough for this var
-				size = 22f;
+                // change this depending on the size you want the hallway
+                // make sure floors are big enough for this var
+                size = 22f;
 
 				// create floor for each cell
 				mazeCells [r, c] .floor = Instantiate (floors, new Vector3 (r*size, 0, c*size), Quaternion.identity) as GameObject;

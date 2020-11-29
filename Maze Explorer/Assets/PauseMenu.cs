@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject controlsInfo;
     public GameObject canvas;
+    public bool controls = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,10 @@ public class PauseMenu : MonoBehaviour
         playerMove = GameObject.Find("/knight").GetComponent<PlayerMovement>();
         //pauseMenu = GameObject.Find("/Canvas/PauseMenu");
         //controlsInfo = GameObject.Find("/Canvas/Controls");
-        controlsInfo.SetActive(false);
+        if (!controls)
+        {
+            controlsInfo.SetActive(false);
+        }
     }
 
     public void ResumeGame()

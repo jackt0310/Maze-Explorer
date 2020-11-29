@@ -1896,6 +1896,10 @@ MonoBehaviour:
   goStart: 1
   animator: {fileID: 0}
   gold: {fileID: 0}
+  arrows: {fileID: 0}
+  grenades: {fileID: 0}
+  food: {fileID: 0}
+  playerMove: {fileID: 0}
 --- !u!1 &777395112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,6 +2778,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6885519477474139148, guid: b3a9446397c226e49b21e9e45fd32e1e, type: 3}
+      propertyPath: size
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 6885519477474139148, guid: b3a9446397c226e49b21e9e45fd32e1e, type: 3}
       propertyPath: mazeRows
       value: 5
@@ -4423,6 +4431,8 @@ MonoBehaviour:
   dying: 0
   gold: 0
   goldText: {fileID: 1261597693}
+  maxArrows: 0
+  maxGrenades: 0
 --- !u!54 &1475854110
 Rigidbody:
   m_ObjectHideFlags: 0

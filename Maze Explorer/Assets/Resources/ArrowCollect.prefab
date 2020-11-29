@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1476902791662566729}
   m_Layer: 0
   m_Name: ArrowCollect
-  m_TagString: arrowUp
+  m_TagString: arrows
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
