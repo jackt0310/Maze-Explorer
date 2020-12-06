@@ -6,8 +6,8 @@ public class FollowPlayer : MonoBehaviour
 {
     public GameObject player;
 
-    public Vector3 offset = new Vector3(0, 1, -10);
-    public Vector3 defaultOffset = new Vector3(0, 1, -10);
+    public Vector3 offset = new Vector3(0, 7, -12);
+    public Vector3 defaultOffset = new Vector3(0, 7, -12);
     public float smoothFactor = 0.5f;
     public bool lookAtPlayer = false;
     public bool rotateAroundPlayer = true;
