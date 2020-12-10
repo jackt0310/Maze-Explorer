@@ -781,6 +781,9 @@ public class PlayerMovement : MonoBehaviour
                 InventoryManagement.GoldAmt = gold;
                 InventoryManagement.UnlockedMusic = unlockedMusic;
                 InventoryManagement.SongsUnlocked = songsUnlocked;
+                InventoryManagement.MaxHealth = maxHealth;
+                InventoryManagement.MaxArrows = maxArrows;
+                InventoryManagement.MaxGrenades = maxGrenades;
                 InventoryManagement.CurrentLevel = 0;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
