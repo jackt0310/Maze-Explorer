@@ -117,6 +117,13 @@ public class PlayerMovement : MonoBehaviour
 
     public int maxArrows;
     public int maxGrenades;
+    public bool walkSoundPause = false;
+
+    public float arrowCooldown = 0f;
+    public float grenadeCooldown = 0f;
+
+    public float maxArrowCooldown = .8f;
+    public float maxGrenadeCooldown = .8f;
 
     void Start()
     {
@@ -197,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
             "QUITE UNPLEASANT! - XXXTentacion",
             "Bringeth Holy Back - Justin Timberlake",
             "Buskin Boots - Foster the People",
-            "Ievan Polka",
+            "Ievan Polkka",
             "Thou Art Somebody Whom I Used to Know - Gotye",
             "Stench of Youthful Soul - Nirvana",
             "Tis No Sunshine - Bill Withers",
@@ -212,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
             "Because I Smoketh The Bud - Afroman",
             "Whatever Thou Sayeth I Am - Eminem",
             "Striken By Thunder - AC/DC",
-            "It Shall Be None But I - NYSNC",
+            "It Shall Be None But I - NSYNC",
             "The King's Regulators - Warren G & Nate Dogg",
             "Under Thy Spell - The Notorious B.I.G."
         };
@@ -232,6 +239,11 @@ public class PlayerMovement : MonoBehaviour
     
     public void Resume()
     {
+        if(walkSoundPause)
+        {
+            walk.UnPause();
+        }
+        walkSoundPause = false;
         pauseMenu.SetActive(false);
         playerUI.SetActive(true);
         Time.timeScale = 1f;
@@ -240,6 +252,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Pause()
     {
+        if(walk.isPlaying)
+        {
+            walk.Pause();
+            walkSoundPause = true;
+        }
         pauseMenu.SetActive(true);
         //playerUI.SetActive(false);
         Time.timeScale = 0f;
@@ -358,7 +375,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (Input.GetKey(KeyCode.E) && !drawn)
+            if (Input.GetKey(KeyCode.E) && !drawn && !rolling)
             {
                 if (!rolling)
                 {
@@ -461,6 +478,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(arrowCooldown > 0f)
+        {
+            arrowCooldown -= Time.deltaTime;
+        }
+        if(grenadeCooldown > 0f)
+        {
+            grenadeCooldown -= Time.deltaTime;
+
+        }
         if(health <= 0 && !dying)
         {
             dying = true;
@@ -510,7 +536,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(!gamePaused)
         {
-            if (Input.GetKeyDown(KeyCode.F) && grenadeAmt > 0)
+            if (Input.GetKeyDown(KeyCode.F) && grenadeAmt > 0 && grenadeCooldown <= 0f && !rolling)
             {
                 GameObject projectile = Instantiate(grenade, transform.position + new Vector3(0f, 3f, 0f) + transform.forward * 5f, transform.rotation);
                 projectile.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
@@ -518,8 +544,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     grenadeAmt--;
                 }
+                grenadeCooldown = maxGrenadeCooldown;
             }
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0) && !rolling)
             {
                 if (!attacking)
                 {
@@ -547,7 +574,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            if (Input.GetKeyDown(KeyCode.Mouse1) && canFire && arrowAmt > 0)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && canFire && arrowAmt > 0 && arrowCooldown <= 0f && !rolling)
             {
                 canFire = false;
                 bowAnimate.SetTrigger("Draw");
@@ -565,6 +592,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     arrowAmt--;
                 }
+                arrowCooldown = maxArrowCooldown;
             }
 
             if (musicTextDisableTime > 0f)

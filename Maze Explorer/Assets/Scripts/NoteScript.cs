@@ -6,6 +6,7 @@ public class NoteScript : MonoBehaviour
 {
     public bool note = true;
     public bool chicken = false;
+    public float speed = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +18,13 @@ public class NoteScript : MonoBehaviour
     {
         if(note)
         {
-            transform.Rotate(0, 50 * Time.deltaTime, 0);
+            transform.Rotate(0, speed * Time.deltaTime, 0);
         } else if(chicken)
         {
-            transform.Rotate(50 * Time.deltaTime, 0, 0);
+            transform.Rotate(speed * Time.deltaTime, 0, 0);
         } else
         {
-            transform.Rotate(0, 0, 50 * Time.deltaTime);
+            transform.Rotate(0, 0, speed * Time.deltaTime);
         }
         
     }

@@ -8,12 +8,14 @@ public class MenuOptions : MonoBehaviour
     public GameObject canvas;
     public GameObject mainMenu;
     public GameObject difficultyMenu;
+    public GameObject creditsMenu;
 
     void Start()
     {
         canvas = GameObject.Find("/Canvas");
         mainMenu = canvas.transform.Find("MainMenu").gameObject;
         difficultyMenu = canvas.transform.Find("DifficultyMenu").gameObject;
+        creditsMenu = canvas.transform.Find("Credits").gameObject;
     }
 
     public void StartHard()
@@ -45,6 +47,20 @@ public class MenuOptions : MonoBehaviour
         difficultyMenu.SetActive(true);
         mainMenu.SetActive(false);
         
+    }
+
+    public void Credits()
+    {
+        creditsMenu.SetActive(true);
+        mainMenu.SetActive(false);
+
+    }
+
+    public void BackToMain()
+    {
+        creditsMenu.SetActive(false);
+        difficultyMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     public void ArenaMode()

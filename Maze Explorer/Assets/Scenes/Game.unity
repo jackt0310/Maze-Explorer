@@ -3107,7 +3107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093123306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 236.8, y: 2, z: 198.1}
+  m_LocalPosition: {x: 240.3, y: 2, z: 198.1}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4349,6 +4349,7 @@ MonoBehaviour:
   goldText: {fileID: 0}
   maxArrows: 0
   maxGrenades: 0
+  walkSoundPause: 0
 --- !u!54 &1475854110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6784,6 +6785,48 @@ PrefabInstance:
     - target: {fileID: 6276669663063048985, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056260213182, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_Text
+      value: 'WASD - movement
+
+        Move mouse - turn camera
+
+        Left click
+        - sword attack
+
+        Move + Left Click - moving sword attack
+
+        Hold
+        right click - draw bow
+
+        Release right click - fire bow
+
+        E
+        - forward roll
+
+        F - Holy Hand Grenade
+
+        G - Self-destruct
+
+        R
+        - Restart level (when dead)
+
+        Q - Change hymn (when more than one
+        hymn unlocked)
+
+        C - Open Chests/Talk to NPCs
+
+        Esc - Pause
+        Menu'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056260213182, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626065056260213182, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7626065056881924945, guid: 783e0cadf2a2a194f8e889f7ff4d28cf, type: 3}
       propertyPath: controls
